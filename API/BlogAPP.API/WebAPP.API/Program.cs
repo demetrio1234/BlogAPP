@@ -16,7 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("WebAPIConnectionString"));
 
 });
-
+//Add-Migration "Initial Migration"
+//Update-Migration
+//
 
 var app = builder.Build();
 
