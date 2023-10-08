@@ -1,0 +1,16 @@
+﻿using Microsoft.EntityFrameworkCore;
+using WebAPP.API.Models.Doamin;
+
+namespace WebAPP.API.Data
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
+        public DbSet<BlogPost> BlogPosts { get; set; }
+
+        public DbSet<Category> BlogCategory { get; set; }
+    }
+}
