@@ -12,5 +12,7 @@ namespace WebAPP.API.Data
         public DbSet<BlogPost> BlogPosts { get; set; }
 
         public DbSet<Category> BlogCategory { get; set; }
+    
+        public DbSet<User> User { get; set; }
     }
 }

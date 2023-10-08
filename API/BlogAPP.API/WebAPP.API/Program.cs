@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebAPP.API.Data;
+using WebAPP.API.Repositories.Implementation;
+using WebAPP.API.Repositories.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +20,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 //Add-Migration "Initial Migration"
 //Update-Migration
-//
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 
