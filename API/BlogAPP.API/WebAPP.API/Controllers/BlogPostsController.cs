@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPP.API.Data;
-using WebAPP.API.Models.Doamin;
+using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
 using WebAPP.API.Models.DTO.RequestDTO;
+using WebAPP.API.Repositories.Interface;
 
 namespace WebAPP.API.Controllers
 {
@@ -10,17 +11,17 @@ namespace WebAPP.API.Controllers
     [ApiController]
     public class BlogPostsController : ControllerBase
     {
-        private readonly ApplicationDbContext dbContext;
 
-        public BlogPostsController(ApplicationDbContext dbContext)
+        private readonly IBlogPostRepository blogPostRepository;
+
+        public BlogPostsController(IBlogPostRepository blogPostRepository)
         {
-            this.dbContext = dbContext;
-
+            this.blogPostRepository = blogPostRepository;
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateBlogPosts(CreateBlogPostRequestDto request)
+        public async Task<IActionResult> CreateBlogPost(CreateBlogPostRequestDto request)
         {
             //Request -> new Model
             var blogPost = new BlogPost()
@@ -36,8 +37,7 @@ namespace WebAPP.API.Controllers
             };
 
             //new Model -> DB
-            await dbContext.AddAsync(blogPost);
-            await dbContext.SaveChangesAsync();
+            await blogPostRepository.CreateAsync(blogPost);
 
             //new Model -> new DTO as response
             var response = new BlogPostDto
@@ -55,6 +55,31 @@ namespace WebAPP.API.Controllers
 
             return Ok(response);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllBlogPosts()
+        {
+            IEnumerable<BlogPost> posts = await blogPostRepository.GetAllAsync();
+
+            var response = new List<BlogPostDto>();
+
+            foreach (BlogPost post in posts)
+            {
+                response.Add(new BlogPostDto { 
+                    
+                    Id = post.Id,
+                    Title = post.Title,
+                    ShortDescription = post.ShortDescription ,
+                    Content =  post.Content,
+                    FeaturedImageUrl =  post.FeaturedImageUrl,
+                    UrlHandle =  post.UrlHandle,
+                    PublishedDate =  post.PublishedDate,
+                    Author =  post.Author,
+                    IsVisible = post.IsVisible,
+                });
+            }
+            return Ok(response);
         }
     }
 }

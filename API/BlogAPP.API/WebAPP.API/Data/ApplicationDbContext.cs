@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebAPP.API.Models.Doamin;
+using WebAPP.API.Models.Domain;
 
 namespace WebAPP.API.Data
 {
@@ -13,6 +13,6 @@ namespace WebAPP.API.Data
 
         public DbSet<Category> BlogCategory { get; set; }
     
-        public DbSet<User> BlogUser { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using WebAPP.API.Models.Doamin;
+﻿using WebAPP.API.Models.Domain;
 
 namespace WebAPP.API.Repositories.Interface
 {
@@ -6,6 +6,5 @@ namespace WebAPP.API.Repositories.Interface
     {
         Task<Category> CreateAsync(Category category);
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
-
     }
 }

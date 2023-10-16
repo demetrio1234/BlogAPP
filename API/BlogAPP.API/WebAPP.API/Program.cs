@@ -3,7 +3,7 @@ using WebAPP.API.Data;
 using WebAPP.API.Repositories.Implementation;
 using WebAPP.API.Repositories.Interface;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -17,10 +17,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("WebAPIConnectionString"));
 
 });
-//Add-Migration "Initial Migration"
-//Update-Migration
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

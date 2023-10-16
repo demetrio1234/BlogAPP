@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using WebAPP.API.Data;
-using WebAPP.API.Models.Doamin;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
 using WebAPP.API.Models.DTO.RequestDTO;
+using WebAPP.API.Repositories.Interface;
 
 namespace WebAPP.API.Controllers
 {
@@ -12,11 +11,11 @@ namespace WebAPP.API.Controllers
     public class UserController : ControllerBase
     {
 
-        private readonly ApplicationDbContext dbContext;
+        private readonly IUserRepository userRepository;
 
-        public UserController(ApplicationDbContext dbContext)
+        public UserController(IUserRepository userRepository)
         {
-            this.dbContext = dbContext;
+            this.userRepository = userRepository;
         }
 
         [HttpPost]
@@ -35,8 +34,7 @@ namespace WebAPP.API.Controllers
                 Phone = request.Phone,
             };
 
-            await dbContext.AddAsync(user);
-            await dbContext.SaveChangesAsync();
+            await userRepository.CreateAsync(user);
 
             var response = new UserDto()
             {
@@ -54,5 +52,35 @@ namespace WebAPP.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            IEnumerable<User> users = await userRepository.GetAllAsync();
+
+            List<UserDto> response = new List<UserDto>();
+
+            foreach(User user in users)
+            {
+
+                response.Add(new UserDto() { 
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                HashedPassword = user.HashedPassword,
+                Address = user.Address,
+                City = user.City,
+                Region = user.Region,
+                PostalCode = user.PostalCode,
+                Country = user.Country,
+                Phone = user.Phone,             
+                });
+
+            }
+
+            return Ok(response);
+        }
+    
+    
     }
 }

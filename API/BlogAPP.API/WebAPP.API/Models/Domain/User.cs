@@ -1,4 +1,4 @@
-﻿namespace WebAPP.API.Models.Doamin
+﻿namespace WebAPP.API.Models.Domain
 {
     public class User
     {

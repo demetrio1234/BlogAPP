@@ -1,9 +1,11 @@
-﻿using WebAPP.API.Data;
-using WebAPP.API.Models.Doamin;
+﻿using Microsoft.EntityFrameworkCore;
+using WebAPP.API.Data;
+using WebAPP.API.Models.Domain;
+using WebAPP.API.Repositories.Interface;
 
 namespace WebAPP.API.Repositories.Implementation
 {
-    public class BlogPostRepository
+    public class BlogPostRepository : IBlogPostRepository
     {
 
         private readonly ApplicationDbContext dbContext;
@@ -16,10 +18,15 @@ namespace WebAPP.API.Repositories.Implementation
         public async Task<BlogPost> CreateAsync(BlogPost blogPost)
         {
             //new Model -> DB
-            await dbContext.AddAsync(blogPost);
+            await dbContext.BlogPosts.AddAsync(blogPost);
             await dbContext.SaveChangesAsync();
 
             return blogPost;
+        }
+
+        public async Task<IEnumerable<BlogPost>> GetAllAsync()
+        {
+            return await dbContext.BlogPosts.ToListAsync();
         }
     }
 }

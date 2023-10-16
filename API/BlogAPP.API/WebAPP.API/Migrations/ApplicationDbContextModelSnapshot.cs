@@ -22,7 +22,7 @@ namespace WebAPP.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WebAPP.API.Models.Doamin.BlogPost", b =>
+            modelBuilder.Entity("WebAPP.API.Models.Domain.BlogPost", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,7 +63,7 @@ namespace WebAPP.API.Migrations
                     b.ToTable("BlogPosts");
                 });
 
-            modelBuilder.Entity("WebAPP.API.Models.Doamin.Category", b =>
+            modelBuilder.Entity("WebAPP.API.Models.Domain.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace WebAPP.API.Migrations
                     b.ToTable("BlogCategory");
                 });
 
-            modelBuilder.Entity("WebAPP.API.Models.Doamin.User", b =>
+            modelBuilder.Entity("WebAPP.API.Models.Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

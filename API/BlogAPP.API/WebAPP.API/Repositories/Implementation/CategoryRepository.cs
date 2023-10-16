@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebAPP.API.Data;
-using WebAPP.API.Models.Doamin;
+using WebAPP.API.Models.Domain;
 using WebAPP.API.Repositories.Interface;
 
 namespace WebAPP.API.Repositories.Implementation

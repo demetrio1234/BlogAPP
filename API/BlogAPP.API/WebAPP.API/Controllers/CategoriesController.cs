@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAPP.API.Data;
-using WebAPP.API.Models.Doamin;
+using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
 using WebAPP.API.Models.DTO.RequestDTO;
 using WebAPP.API.Repositories.Interface;
@@ -30,8 +29,8 @@ namespace WebAPP.API.Controllers
             var response = new CategoryDto()
             {
                 Id = category.Id,
-                Name = request.Name,
-                UrlHandle = request.UrlHandle
+                Name = category.Name,
+                UrlHandle = category.UrlHandle
             };
 
             return Ok(response);
