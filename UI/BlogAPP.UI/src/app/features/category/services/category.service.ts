@@ -7,19 +7,19 @@ import { Category } from '../models/category.model';
   providedIn: 'root',
 })
 export class CategoryService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  categoriesUrl: string = 'https://localhost:7111/api/categories';
 
   addCategory(model: AddCategoryRequest): Observable<void> {
     return this.http.post<void>(
-      'https://localhost:7111/api/categories',
+      `${this.categoriesUrl}`,
       model
     );
   }
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(
-      'https://localhost:7111/api/categories'
-    );
+    return this.http.get<Category[]>(`${this.categoriesUrl}`);
   }
 }
 

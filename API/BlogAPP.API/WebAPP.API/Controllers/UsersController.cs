@@ -8,12 +8,12 @@ namespace WebAPP.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
 
         private readonly IUserRepository userRepository;
 
-        public UserController(IUserRepository userRepository)
+        public UsersController(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
@@ -56,7 +56,7 @@ namespace WebAPP.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            IEnumerable<User> users = await userRepository.GetAllAsync();
+            IEnumerable<User> users = await userRepository.GetAllUsersAsync();
 
             List<UserDto> response = new List<UserDto>();
 

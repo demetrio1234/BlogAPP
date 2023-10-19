@@ -2,10 +2,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryListComponent } from './features/category/category-list/category-list.component';
 import { AddCategoryComponent } from './features/category/add-category/add-category.component';
+import { BlogitemListComponent } from './features/blogitem/blogitem-list/blogitem-list.component';
+import { AddBlogitemComponent } from './features/blogitem/add-blogitem/add-blogitem.component';
+import { UserListComponent } from './features/user/user-list/user-list.component';
+import { AddUserComponent } from './features/user/add-user/add-user.component';
 
 const routes: Routes = [
-  { path :'admin/categories', component : CategoryListComponent},
-  { path :'admin/categories/add', component : AddCategoryComponent},
+  { path: 'admin/categories', component: CategoryListComponent },
+  { path: 'admin/categories/add', component: AddCategoryComponent },
+
+  { path: 'admin/blogItems', component: BlogitemListComponent },
+  { path: 'admin/blogItems/add', component: AddBlogitemComponent },
+
+  { path: 'admin/users', component: UserListComponent },
+  { path: 'admin/users/add', component: AddUserComponent },
+
 ];
 
 @NgModule({

@@ -23,7 +23,7 @@ namespace WebAPP.API.Repositories.Implementation
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await dbContext.User.ToListAsync();
 

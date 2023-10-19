@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
@@ -10,7 +9,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./category-list.component.css'],
 })
 export class CategoryListComponent implements OnInit {
-  //categories: Category[] = [];
 
   categories$?: Observable<Category[]>;
 
@@ -18,6 +16,6 @@ export class CategoryListComponent implements OnInit {
 
   ngOnInit(): void {
     this.categories$ = this.categoryService.getCategories();
-    
+    console.log(this.categories$);
   }
 }

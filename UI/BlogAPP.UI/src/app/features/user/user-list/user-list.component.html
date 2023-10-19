@@ -1,0 +1,41 @@
+<div class="container">
+    <h1 class="mt-3">Users List</h1>
+    <div class="d-flex justify-content-end mt-3">
+      <a [routerLink]="['/admin/users/add']" class="btn btn-primary"
+        >Add User</a
+      >
+    </div>
+  
+  
+    <ng-container *ngIf="users$ | async as users">
+      <table class="table table-bordered mt-3">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>EMAIL</th>
+            <th>HASHED PW</th>
+            <th>CITY</th>
+            <th>REGION</th>
+            <th>POSTAL CODE</th>
+            <th>COUNTRY</th>
+            <th>PHONE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.hashedPass }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ user.city }}</td>
+            <td>{{ user.region }}</td>
+            <td>{{ user.postalCode }}</td>
+            <td>{{ user.phone }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+  
