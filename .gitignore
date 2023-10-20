@@ -1,6 +1,5 @@
 *.vsidx
 *.v2
-*.suo
+.suo
 *.dll
-*.v2
 *.pbd
