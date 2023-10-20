@@ -71,7 +71,7 @@ namespace WebAPP.API.Controllers
                     Id = post.Id,
                     Title = post.Title,
                     ShortDescription = post.ShortDescription ,
-                    Content =  post.Content,
+                    Content = post.Content,
                     FeaturedImageUrl =  post.FeaturedImageUrl,
                     UrlHandle =  post.UrlHandle,
                     PublishedDate =  post.PublishedDate,

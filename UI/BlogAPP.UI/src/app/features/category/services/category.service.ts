@@ -7,9 +7,10 @@ import { Category } from '../models/category.model';
   providedIn: 'root',
 })
 export class CategoryService {
-  constructor(private http: HttpClient) { }
 
   categoriesUrl: string = 'https://localhost:7111/api/categories';
+
+  constructor(private http: HttpClient) { }
 
   addCategory(model: AddCategoryRequest): Observable<void> {
     return this.http.post<void>(
