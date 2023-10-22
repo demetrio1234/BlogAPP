@@ -11,7 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddBlogitemComponent } from './features/blogitem/add-blogitem/add-blogitem.component';
 import { BlogitemListComponent } from './features/blogitem/blogitem-list/blogitem-list.component';
 import { AddUserComponent } from './features/user/add-user/add-user.component';
-import { UserListComponent } from './features/user/user-list/user-list.component'
+import { UserListComponent } from './features/user/user-list/user-list.component';
+import { EditCategoryComponent } from './features/category/edit-category/edit-category.component'
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserListComponent } from './features/user/user-list/user-list.component
     AddBlogitemComponent,
     BlogitemListComponent,
     AddUserComponent,
-    UserListComponent
+    UserListComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,

@@ -28,5 +28,10 @@ namespace WebAPP.API.Repositories.Implementation
             return await dbContext.User.ToListAsync();
 
         }
+
+        public async Task<User?> GetUserByIdAsync(Guid Id)
+        {
+            return await dbContext.User.FirstOrDefaultAsync(user => user.Id == Id);
+        }
     }
 }

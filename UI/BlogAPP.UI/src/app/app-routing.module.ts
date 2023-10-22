@@ -6,10 +6,12 @@ import { BlogitemListComponent } from './features/blogitem/blogitem-list/blogite
 import { AddBlogitemComponent } from './features/blogitem/add-blogitem/add-blogitem.component';
 import { UserListComponent } from './features/user/user-list/user-list.component';
 import { AddUserComponent } from './features/user/add-user/add-user.component';
+import { EditCategoryComponent } from './features/category/edit-category/edit-category.component';
 
 const routes: Routes = [
   { path: 'admin/categories', component: CategoryListComponent },
   { path: 'admin/categories/add', component: AddCategoryComponent },
+  { path: 'admin/categories/:id', component: EditCategoryComponent },
 
   { path: 'admin/blogItems', component: BlogitemListComponent },
   { path: 'admin/blogItems/add', component: AddBlogitemComponent },

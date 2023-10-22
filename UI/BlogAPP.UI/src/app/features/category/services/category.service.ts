@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AddCategoryRequest } from '../models/add-category-request.model';
 import { Category } from '../models/category.model';
+import { EditCategoryRequest } from '../models/edit-category-request.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,8 +23,17 @@ export class CategoryService {
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.categoriesUrl}`);
   }
+
+  getCategoryById(id: string): Observable<Category> {
+    return this.http.get<Category>(`${this.categoriesUrl}/${id}`);
+  }
+
+  tempAddress?: string;
+
+  editCategory(id: string, editCategoryRequest: EditCategoryRequest): Observable<Category> {
+
+    return this.http.put<Category>(`${this.categoriesUrl}/${id}`, editCategoryRequest);
+
+  }
+
 }
-
-
-
-

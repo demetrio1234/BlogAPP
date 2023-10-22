@@ -60,10 +60,42 @@ namespace WebAPP.API.Controllers
 
             List<UserDto> response = new List<UserDto>();
 
-            foreach(User user in users)
+            foreach (User user in users)
             {
 
-                response.Add(new UserDto() { 
+                response.Add(new UserDto()
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    HashedPassword = user.HashedPassword,
+                    Address = user.Address,
+                    City = user.City,
+                    Region = user.Region,
+                    PostalCode = user.PostalCode,
+                    Country = user.Country,
+                    Phone = user.Phone,
+                });
+
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("{Id:Guid}")]
+        public async Task<IActionResult> GetUserById([FromRoute] Guid Id)
+        {
+
+            User? user = await userRepository.GetUserByIdAsync(Id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            UserDto response = new()
+            {
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
@@ -73,14 +105,11 @@ namespace WebAPP.API.Controllers
                 Region = user.Region,
                 PostalCode = user.PostalCode,
                 Country = user.Country,
-                Phone = user.Phone,             
-                });
-
-            }
+                Phone = user.Phone,
+            };
 
             return Ok(response);
         }
-    
-    
+
     }
 }

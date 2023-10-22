@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using WebAPP.API.Data;
 using WebAPP.API.Models.Domain;
 using WebAPP.API.Repositories.Interface;
@@ -27,6 +29,25 @@ namespace WebAPP.API.Repositories.Implementation
         public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
         {
             return await dbContext.BlogCategory.ToListAsync();
+        }
+
+        public async Task<Category?> GetCategoryByIdAsync(Guid Id)
+        {
+            return await dbContext.BlogCategory.FirstOrDefaultAsync(category => category.Id == Id);
+        }
+
+        public async Task<Category?> UpdateCategoryAsync(Category request)
+        {
+            Category? existingCategory = await dbContext.BlogCategory.FirstOrDefaultAsync(category => category.Id == request.Id);
+
+            if (existingCategory != null)
+            {
+                dbContext.Entry(existingCategory).CurrentValues.SetValues(request);
+                await dbContext.SaveChangesAsync();
+                return existingCategory;
+            }
+
+            return null;
         }
     }
 }

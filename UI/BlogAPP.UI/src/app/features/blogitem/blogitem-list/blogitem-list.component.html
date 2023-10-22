@@ -12,8 +12,9 @@
 
     <div class="container overflow-hidden">
       <ng-container *ngIf="blogItems$ | async as blogItems">
-        <div *ngFor="let blogItem of blogItems" class="row gy-4 gy-md-5 gx-xl-6 gy-xl-6 gx-xxl-9 gy-xxl-9">
-          <div class="col-12 col-lg-4">
+        <div *ngFor="let blogItem of blogItems" class="row gy-4 gy-md-5 gx-xl-6 gy-xl-6 gx-xxl-9 gy-xxl-9  mt-3">
+          <div class="col-12 col-lg-4 rounded-2 border border-1 border-info">
+            <a href=""></a>
             <article>
               <div class="card border-0 bg-transparent">
                 <figure

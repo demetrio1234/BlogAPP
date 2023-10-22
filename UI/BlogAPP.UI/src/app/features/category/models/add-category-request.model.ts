@@ -1,6 +1,4 @@
-export interface AddCategoryRequest{
-    
-    Name:string;
-    UrlHandle:string;
-    
+export interface AddCategoryRequest {
+    Name: string;
+    UrlHandle: string;
 }  
