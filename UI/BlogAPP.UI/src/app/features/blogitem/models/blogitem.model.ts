@@ -5,7 +5,7 @@ export interface BlogItem {
     content: string;
     featuredimageurl: string;
     urlhandle: string;
-    publisheddate: string;
+    publisheddate: Date;
     author: string;
     isvisible: string;
 }

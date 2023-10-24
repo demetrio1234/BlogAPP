@@ -21,7 +21,7 @@ namespace WebAPP.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateBlogPost(CreateBlogPostRequestDto request)
+        public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDto request)
         {
             //Request -> new Model
             var blogPost = new BlogPost()
@@ -61,8 +61,8 @@ namespace WebAPP.API.Controllers
         public async Task<IActionResult> GetAllBlogPosts()
         {
             IEnumerable<BlogPost> posts = await blogPostRepository.GetAllAsync();
-
-            var response = new List<BlogPostDto>();
+            
+            List<BlogPostDto> response = new ();
 
             foreach (BlogPost post in posts)
             {

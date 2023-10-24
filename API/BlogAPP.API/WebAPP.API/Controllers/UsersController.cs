@@ -19,7 +19,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserRequestDto request)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto request)
         {
             var user = new User()
             {

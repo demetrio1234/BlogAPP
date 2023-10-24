@@ -13,8 +13,8 @@ export class BlogitemService {
 
   constructor(private http: HttpClient) { }
 
-  addBlogItem(model: AddBlogItemRequest): Observable<void> {
-    return this.http.post<void>(`${this.blogItemsUrl}`,
+  addBlogItem(model: AddBlogItemRequest): Observable<BlogItem> {
+    return this.http.post<BlogItem>(`${this.blogItemsUrl}`,
       model
     );
   }

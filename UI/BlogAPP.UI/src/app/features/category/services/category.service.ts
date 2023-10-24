@@ -28,12 +28,15 @@ export class CategoryService {
     return this.http.get<Category>(`${this.categoriesUrl}/${id}`);
   }
 
-  tempAddress?: string;
-
   editCategory(id: string, editCategoryRequest: EditCategoryRequest): Observable<Category> {
 
     return this.http.put<Category>(`${this.categoriesUrl}/${id}`, editCategoryRequest);
 
   }
+
+  deleteCategory(id:string):Observable<Category>{
+    return this.http.delete<Category>(`${this.categoriesUrl}/${id}`);
+  }
+
 
 }

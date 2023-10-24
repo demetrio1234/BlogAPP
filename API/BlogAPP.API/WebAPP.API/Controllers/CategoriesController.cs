@@ -18,7 +18,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(CreateCategoryRequestDto request)
+        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto request)
         {
             //Request -> new Model
             Category category = new() { Name = request.Name, UrlHandle = request.UrlHandle };
@@ -99,6 +99,18 @@ namespace WebAPP.API.Controllers
 
         }
 
+        [HttpDelete]
+        [Route("{Id:Guid}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] Guid Id)
+        {
+            Category? category = await categoryRepository.DeleteCategoryAsync(Id);
 
+            if (category == null)
+                return NotFound();
+
+            CategoryDto response = new() { Id = category.Id, Name = category.Name, UrlHandle = category.UrlHandle };
+            return Ok(response);
+
+        }
     }
 }

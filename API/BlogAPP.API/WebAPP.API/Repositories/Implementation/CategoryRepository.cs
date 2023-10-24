@@ -1,4 +1,5 @@
 ﻿using Azure;
+using Azure.Core;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using WebAPP.API.Data;
@@ -48,6 +49,19 @@ namespace WebAPP.API.Repositories.Implementation
             }
 
             return null;
+        }
+
+        public async Task<Category?> DeleteCategoryAsync(Guid Id)
+        {
+            Category? existingCategory = await dbContext.BlogCategory.FirstOrDefaultAsync(category => category.Id == Id);
+
+            if (existingCategory == null)
+                return null;
+
+            dbContext.Remove(existingCategory);
+            await dbContext.SaveChangesAsync();
+            return existingCategory;
+
         }
     }
 }

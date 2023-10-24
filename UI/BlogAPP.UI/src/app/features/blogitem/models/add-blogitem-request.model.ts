@@ -1,10 +1,10 @@
-export interface AddBlogItemRequest{
-    Title: string;
-    ShortDescription: string;
-    Content: string;
-    FeaturedImageUrl: string;
-    UrlHandle: string;
-    PublishedDate: string;
-    Author: string;
-    IsVisible: string;
+export interface AddBlogItemRequest {
+    title: string;
+    shortDescription: string;
+    content: string;
+    featuredImageUrl: string;
+    urlHandle: string;
+    publishedDate: Date;
+    author: string;
+    isVisible: boolean;
 }  

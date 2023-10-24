@@ -13,6 +13,7 @@ import { BlogitemListComponent } from './features/blogitem/blogitem-list/blogite
 import { AddUserComponent } from './features/user/add-user/add-user.component';
 import { UserListComponent } from './features/user/user-list/user-list.component';
 import { EditCategoryComponent } from './features/category/edit-category/edit-category.component'
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { EditCategoryComponent } from './features/category/edit-category/edit-ca
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MarkdownModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

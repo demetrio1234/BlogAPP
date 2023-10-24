@@ -8,5 +8,6 @@ namespace WebAPP.API.Repositories.Interface
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
         Task<Category?> GetCategoryByIdAsync(Guid Id);
         Task<Category?> UpdateCategoryAsync(Category category);
+        Task<Category?> DeleteCategoryAsync(Guid Id);
     }
 }
