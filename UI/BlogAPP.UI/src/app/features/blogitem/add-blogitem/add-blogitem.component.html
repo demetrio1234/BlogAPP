@@ -66,7 +66,10 @@
           id="featuredimageurl"
           name="featuredimageurl"
           class="form-control"
+          [(ngModel)]="model.featuredImageUrl"
         />
+        <ng-container *ngIf="model.featuredImageUrl !== '' ">
+          <img [src]="model.featuredImageUrl" height="200px" class="my-2"/></ng-container>
       </div>
       <div class="mt-3">
         <label for="urlHandle" class="form-label">URL Handle</label>

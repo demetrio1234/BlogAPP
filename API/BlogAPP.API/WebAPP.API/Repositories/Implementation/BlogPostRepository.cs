@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 using WebAPP.API.Data;
 using WebAPP.API.Models.Domain;
 using WebAPP.API.Repositories.Interface;
@@ -28,5 +29,34 @@ namespace WebAPP.API.Repositories.Implementation
         {
             return await dbContext.BlogPosts.ToListAsync();
         }
+
+        public async Task<BlogPost?> GetByIdAsync(Guid Id)
+        {
+            return await dbContext.BlogPosts.FirstOrDefaultAsync(blogPost => blogPost.Id == Id);
+        }
+
+        public async Task<BlogPost?> UpdateAsync(BlogPost request)
+        {
+            BlogPost? existingBlogPost = await dbContext.BlogPosts.FirstOrDefaultAsync(post => post.Id == request.Id);
+
+            if (existingBlogPost == null) return null;
+
+            dbContext.Entry(existingBlogPost).CurrentValues.SetValues(request);
+            await dbContext.SaveChangesAsync();
+            return existingBlogPost;
+        }
+
+        public async Task<BlogPost?> DeleteByIdAsync(Guid Id)
+        {
+            BlogPost? existingBlogPost = await dbContext.BlogPosts.FirstOrDefaultAsync(post => post.Id == Id);
+
+            if (existingBlogPost == null) return null;
+
+            dbContext.Remove(existingBlogPost);
+            await dbContext.SaveChangesAsync(true);
+            return existingBlogPost;
+        }
+
     }
+
 }

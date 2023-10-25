@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAPP.API.Data;
 using WebAPP.API.Models.Domain;
-using WebAPP.API.Models.DTO.DTOs;
-using WebAPP.API.Models.DTO.RequestDTO;
+using WebAPP.API.Models.DTO;
+using WebAPP.API.Repositories.Implementation;
 using WebAPP.API.Repositories.Interface;
 
 namespace WebAPP.API.Controllers
@@ -21,37 +20,13 @@ namespace WebAPP.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDto request)
+        public async Task<IActionResult> CreateBlogPost([FromBody] BlogPostDto request)
         {
-            //Request -> new Model
-            var blogPost = new BlogPost()
-            {
-                Title = request.Title,
-                ShortDescription = request.ShortDescription,
-                Content = request.Content,
-                FeaturedImageUrl = request.FeaturedImageUrl,
-                UrlHandle = request.UrlHandle,
-                PublishedDate = request.PublishedDate,
-                Author = request.Author,
-                IsVisible = request.IsVisible,
-            };
+            BlogPost blogPost = new(request);
 
-            //new Model -> DB
             await blogPostRepository.CreateAsync(blogPost);
 
-            //new Model -> new DTO as response
-            var response = new BlogPostDto
-            {
-                Id = blogPost.Id,
-                Title = blogPost.Title,
-                ShortDescription = blogPost.ShortDescription,
-                Content = blogPost.Content,
-                FeaturedImageUrl = blogPost.FeaturedImageUrl,
-                UrlHandle = blogPost.UrlHandle,
-                PublishedDate = blogPost.PublishedDate,
-                Author = blogPost.Author,
-                IsVisible = blogPost.IsVisible,
-            };
+            BlogPostDto response = new(blogPost);
 
             return Ok(response);
 
@@ -61,25 +36,55 @@ namespace WebAPP.API.Controllers
         public async Task<IActionResult> GetAllBlogPosts()
         {
             IEnumerable<BlogPost> posts = await blogPostRepository.GetAllAsync();
-            
-            List<BlogPostDto> response = new ();
+
+            List<BlogPostDto> response = new();
 
             foreach (BlogPost post in posts)
             {
-                response.Add(new BlogPostDto { 
-                    
-                    Id = post.Id,
-                    Title = post.Title,
-                    ShortDescription = post.ShortDescription ,
-                    Content = post.Content,
-                    FeaturedImageUrl =  post.FeaturedImageUrl,
-                    UrlHandle =  post.UrlHandle,
-                    PublishedDate =  post.PublishedDate,
-                    Author =  post.Author,
-                    IsVisible = post.IsVisible,
-                });
+                response.Add(new BlogPostDto(post));
             }
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("{Id:Guid}")]
+        public async Task<IActionResult> GetBlogPostById([FromRoute] Guid Id)
+        {
+            BlogPost? blogPost = await blogPostRepository.GetByIdAsync(Id);
+
+            if (blogPost == null) return NotFound();
+
+            return Ok(new BlogPostDto(blogPost));
+        }
+
+        [HttpPut]
+        [Route("{Id:Guid}")]
+        public async Task<IActionResult> UpdateBlogPost([FromRoute] Guid Id, BlogPostDto request)
+        {
+            BlogPost blogPost = new(Id, request);
+
+            BlogPost? updatedBlogPost = await blogPostRepository.UpdateAsync(blogPost);
+
+            if (updatedBlogPost == null) return NotFound();
+
+            BlogPostDto response = new(updatedBlogPost);
+
+            return Ok(response);
+
+        }
+
+        [HttpDelete]
+        [Route("{Id:Guid}")]
+        public async Task<IActionResult> DeleteBlogPost([FromRoute] Guid Id)
+        {
+            BlogPost? blogPost = await blogPostRepository.DeleteByIdAsync(Id);
+
+            if (blogPost == null) return NotFound();
+
+            BlogPostDto response = new(blogPost);
+
+            return Ok(response);
+
         }
     }
 }

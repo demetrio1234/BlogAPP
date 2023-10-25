@@ -9,10 +9,10 @@ import { Subscriber, Subscription } from 'rxjs';
   templateUrl: './add-blogitem.component.html',
   styleUrls: ['./add-blogitem.component.css']
 })
-export class AddBlogitemComponent implements OnInit, OnDestroy{
+export class AddBlogitemComponent implements OnDestroy {
 
   model: AddBlogItemRequest;
-  
+
   private subscription: Subscription = new Subscription;
 
   constructor(private blogItemService: BlogitemService, private router: Router) {
@@ -27,14 +27,10 @@ export class AddBlogitemComponent implements OnInit, OnDestroy{
       isVisible: true,
 
     }
-
-  }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 
   onFormSubmit(): void {
-    this.subscription  = this.blogItemService.addBlogItem(this.model).subscribe({
+    this.subscription = this.blogItemService.addBlogItem(this.model).subscribe({
       next: (response) => {
         this.router.navigateByUrl('/admin/blogItems');
         console.log(response);
@@ -42,8 +38,7 @@ export class AddBlogitemComponent implements OnInit, OnDestroy{
     });
   }
 
-  
   ngOnDestroy(): void {
-   this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

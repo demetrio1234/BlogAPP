@@ -3,3 +3,6 @@
 .suo
 *.dll
 *.pbd
+*.bin
+*futdcache.v2
+blogapp.api.metadata.v7.bin

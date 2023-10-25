@@ -1,7 +1,4 @@
-﻿using Azure;
-using Azure.Core;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebAPP.API.Data;
 using WebAPP.API.Models.Domain;
 using WebAPP.API.Repositories.Interface;
@@ -41,22 +38,18 @@ namespace WebAPP.API.Repositories.Implementation
         {
             Category? existingCategory = await dbContext.BlogCategory.FirstOrDefaultAsync(category => category.Id == request.Id);
 
-            if (existingCategory != null)
-            {
-                dbContext.Entry(existingCategory).CurrentValues.SetValues(request);
-                await dbContext.SaveChangesAsync();
-                return existingCategory;
-            }
+            if (existingCategory == null) return null;
 
-            return null;
+            dbContext.Entry(existingCategory).CurrentValues.SetValues(request);
+            await dbContext.SaveChangesAsync();
+            return existingCategory;
         }
 
         public async Task<Category?> DeleteCategoryAsync(Guid Id)
         {
             Category? existingCategory = await dbContext.BlogCategory.FirstOrDefaultAsync(category => category.Id == Id);
 
-            if (existingCategory == null)
-                return null;
+            if (existingCategory == null) return null;
 
             dbContext.Remove(existingCategory);
             await dbContext.SaveChangesAsync();

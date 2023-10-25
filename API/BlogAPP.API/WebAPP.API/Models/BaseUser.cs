@@ -1,6 +1,6 @@
-﻿namespace WebAPP.API.Models.DTO.RequestDTO
+﻿namespace WebAPP.API.Models
 {
-    public class CreateUserRequestDto
+    public abstract class BaseUser
     {
         public string Name { get; set; }
         public string Email { get; set; }

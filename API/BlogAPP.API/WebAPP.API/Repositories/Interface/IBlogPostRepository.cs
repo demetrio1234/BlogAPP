@@ -2,9 +2,10 @@
 
 namespace WebAPP.API.Repositories.Interface
 {
-    public interface IBlogPostRepository
+    public interface IBlogPostRepository : ICrud<BlogPost>
     {
-        Task<BlogPost> CreateAsync(BlogPost blogPost);
-        Task<IEnumerable<BlogPost>> GetAllAsync();
+
+
+
     }
 }

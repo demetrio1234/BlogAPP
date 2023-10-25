@@ -14,6 +14,7 @@ import { AddUserComponent } from './features/user/add-user/add-user.component';
 import { UserListComponent } from './features/user/user-list/user-list.component';
 import { EditCategoryComponent } from './features/category/edit-category/edit-category.component'
 import { MarkdownModule } from 'ngx-markdown';
+import { EditBlogitemComponent } from './features/blogitem/edit-blogitem/edit-blogitem.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MarkdownModule } from 'ngx-markdown';
     BlogitemListComponent,
     AddUserComponent,
     UserListComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    EditBlogitemComponent
   ],
   imports: [
     BrowserModule,

@@ -33,7 +33,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
         if (this.id) {
           this.editCategorySubscription = this.categoryService.getCategoryById(this.id).subscribe({
             next: (response) => {
-              this.category = response;;
+              this.category = response;
             },
           });
         }
@@ -42,7 +42,6 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
   }
 
   onFormSubmit(): void {
-
     const editCategoryRequest: EditCategoryRequest = {
       name: this.category?.name ?? '',
       urlHandle: this.category?.urlHandle ?? ''

@@ -9,7 +9,17 @@
         </div>
       </div>
     </div>
-
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <a
+            [routerLink]="['/admin/blogItems/add']"
+            class="btn bsb-btn-2xl btn-primary rounded-pill mt-5 mt-xl-10"
+            >Create your own post!</a
+          >
+        </div>
+      </div>
+    </div>
     <div class="container overflow-hidden">
       <ng-container *ngIf="blogItems$ | async as blogItems">
         <div *ngFor="let blogItem of blogItems" class="row gy-4 gy-md-5 gx-xl-6 gy-xl-6 gx-xxl-9 gy-xxl-9  mt-3">
@@ -129,18 +139,6 @@
           </div>
         </div>
       </ng-container>
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col text-center">
-          <a
-            [routerLink]="['/admin/blogItems/add']"
-            class="btn bsb-btn-2xl btn-primary rounded-pill mt-5 mt-xl-10"
-            >Create your own post!</a
-          >
-        </div>
-      </div>
     </div>
   </section>
 </div>

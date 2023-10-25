@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPP.API.Models.Domain;
-using WebAPP.API.Models.DTO.DTOs;
-using WebAPP.API.Models.DTO.RequestDTO;
+using WebAPP.API.Models.DTO;
 using WebAPP.API.Repositories.Interface;
 
 namespace WebAPP.API.Controllers
@@ -18,20 +17,13 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto request)
+        public async Task<IActionResult> CreateCategory([FromBody] CategoryDto request)
         {
-            //Request -> new Model
-            Category category = new() { Name = request.Name, UrlHandle = request.UrlHandle };
+            Category category = new(request) ;
 
-            await categoryRepository.CreateAsync(category);
+            category = await categoryRepository.CreateAsync(category);
 
-            //new Model -> new DTO as response
-            var response = new CategoryDto()
-            {
-                Id = category.Id,
-                Name = category.Name,
-                UrlHandle = category.UrlHandle
-            };
+            CategoryDto response = new(category);
 
             return Ok(response);
         }
@@ -39,18 +31,13 @@ namespace WebAPP.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await categoryRepository.GetAllCategoriesAsync();
+            IEnumerable<Category> categories = await categoryRepository.GetAllCategoriesAsync();
 
-            var response = new List<CategoryDto>();
+            List<CategoryDto> response = new List<CategoryDto>();
 
             foreach (var category in categories)
             {
-                response.Add(new CategoryDto
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    UrlHandle = category.UrlHandle
-                });
+                response.Add(new CategoryDto(category));
             }
 
             return Ok(response);
@@ -63,35 +50,22 @@ namespace WebAPP.API.Controllers
             Category? category = await categoryRepository.GetCategoryByIdAsync(Id);
 
             if (category == null)
-            {
                 return NotFound();
-            }
 
-            CategoryDto response = new()
-            {
-                Id = category.Id,
-                Name = category.Name,
-                UrlHandle = category.UrlHandle
-            };
-
-            return Ok(response);
+            return Ok(new CategoryDto(category));
         }
 
         [HttpPut]
         [Route("{Id:Guid}")]
-        public async Task<IActionResult> UpdateCategory([FromRoute] Guid Id, UpdateCategoryRequestDto request)
+        public async Task<IActionResult> UpdateCategory([FromRoute] Guid Id, CategoryDto request)
         {
-            Category category = new() { Id = Id, Name = request.Name, UrlHandle = request.UrlHandle };
+            Category category = new(Id, request);
 
-            var updatedCategory = await categoryRepository.UpdateCategoryAsync(category);
+            Category? updatedCategory = await categoryRepository.UpdateCategoryAsync(category);
 
             if (updatedCategory != null)
             {
-                CategoryDto response = new()
-                {
-                    Name = updatedCategory.Name,
-                    UrlHandle = updatedCategory.UrlHandle
-                };
+                CategoryDto response = new(updatedCategory);
 
                 return Ok(response);
             }
@@ -108,7 +82,8 @@ namespace WebAPP.API.Controllers
             if (category == null)
                 return NotFound();
 
-            CategoryDto response = new() { Id = category.Id, Name = category.Name, UrlHandle = category.UrlHandle };
+            CategoryDto response = new(category);
+
             return Ok(response);
 
         }

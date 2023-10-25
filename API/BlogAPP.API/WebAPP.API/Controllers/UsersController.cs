@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPP.API.Models.Domain;
-using WebAPP.API.Models.DTO.DTOs;
-using WebAPP.API.Models.DTO.RequestDTO;
+using WebAPP.API.Models.DTO;
+using WebAPP.API.Repositories.Implementation;
 using WebAPP.API.Repositories.Interface;
 
 namespace WebAPP.API.Controllers
@@ -19,36 +19,13 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto request)
+        public async Task<IActionResult> CreateUser([FromBody] UserDto request)
         {
-            var user = new User()
-            {
-                Name = request.Name,
-                Email = request.Email,
-                HashedPassword = request.HashedPassword,
-                Address = request.Address,
-                City = request.City,
-                Region = request.Region,
-                PostalCode = request.PostalCode,
-                Country = request.Country,
-                Phone = request.Phone,
-            };
+            User user = new(request);
 
-            await userRepository.CreateAsync(user);
+            user = await userRepository.CreateAsync(user);
 
-            var response = new UserDto()
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                HashedPassword = user.HashedPassword,
-                Address = user.Address,
-                City = user.City,
-                Region = user.Region,
-                PostalCode = user.PostalCode,
-                Country = user.Country,
-                Phone = user.Phone,
-            };
+            UserDto response = new(user);
 
             return Ok(response);
         }
@@ -62,21 +39,7 @@ namespace WebAPP.API.Controllers
 
             foreach (User user in users)
             {
-
-                response.Add(new UserDto()
-                {
-                    Id = user.Id,
-                    Name = user.Name,
-                    Email = user.Email,
-                    HashedPassword = user.HashedPassword,
-                    Address = user.Address,
-                    City = user.City,
-                    Region = user.Region,
-                    PostalCode = user.PostalCode,
-                    Country = user.Country,
-                    Phone = user.Phone,
-                });
-
+                response.Add(new UserDto(user));
             }
 
             return Ok(response);
@@ -90,25 +53,42 @@ namespace WebAPP.API.Controllers
             User? user = await userRepository.GetUserByIdAsync(Id);
 
             if (user == null)
-            {
                 return NotFound();
-            }
 
-            UserDto response = new()
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                HashedPassword = user.HashedPassword,
-                Address = user.Address,
-                City = user.City,
-                Region = user.Region,
-                PostalCode = user.PostalCode,
-                Country = user.Country,
-                Phone = user.Phone,
-            };
+            UserDto response = new(user);
 
             return Ok(response);
+        }
+
+        [HttpPut]
+        [Route("{Id:Guid}")]
+        public async Task<IActionResult> UpdateUser([FromRoute] Guid Id, UserDto request)
+        {
+            User user = new(Id, request);
+
+            User? updatedUser = await userRepository.UpdateUserAsync(user);
+
+            if (updatedUser == null)
+                return NotFound();
+
+            UserDto response = new(updatedUser);
+
+            return Ok(response);
+
+        }
+
+        [HttpDelete]
+        [Route("{Id:Guid}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] Guid Id)
+        {
+            User? user = await userRepository.DeleteUserAsync(Id);
+
+            if (user == null) return NotFound();
+
+            UserDto response = new(user);
+
+            return Ok(response);
+
         }
 
     }
