@@ -23,6 +23,8 @@ namespace WebAPP.API.Models.Domain
 
         public required bool IsVisible { get; set; }
 
+        public ICollection<Category> Categories { get; set; }
+
     }
 }
 

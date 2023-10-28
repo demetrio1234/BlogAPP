@@ -13,10 +13,11 @@ namespace WebAPP.API.Controllers
     {
 
         private readonly IBlogPostRepository blogPostRepository;
-
-        public BlogPostsController(IBlogPostRepository blogPostRepository)
+        private readonly ICategoryRepository categoryRepository;
+        public BlogPostsController(IBlogPostRepository blogPostRepository, ICategoryRepository categoryRepository)
         {
             this.blogPostRepository = blogPostRepository;
+            this.categoryRepository = categoryRepository;
         }
 
 
@@ -34,7 +35,20 @@ namespace WebAPP.API.Controllers
                 PublishedDate = request.PublishedDate,
                 Author = request.Author,
                 IsVisible = request.IsVisible,
+                Categories = new List<Category>()
             };
+
+            foreach (Guid guid in request.guids)
+            {
+                var existingCategory = await categoryRepository.GetCategoryByIdAsync(guid);
+
+                if (existingCategory != null)
+                {
+                    blogPost.Categories.Add(existingCategory);
+                }
+
+            }
+
 
             //new Model -> DB
             await blogPostRepository.CreateAsync(blogPost);
@@ -51,6 +65,13 @@ namespace WebAPP.API.Controllers
                 PublishedDate = blogPost.PublishedDate,
                 Author = blogPost.Author,
                 IsVisible = blogPost.IsVisible,
+                Categories = blogPost.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle
+                })
+                .ToList()
             };
 
             return Ok(response);
@@ -60,23 +81,31 @@ namespace WebAPP.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllBlogPosts()
         {
-            IEnumerable<BlogPost> posts = await blogPostRepository.GetAllAsync();
-            
-            List<BlogPostDto> response = new ();
+            IEnumerable<BlogPost> blogPosts = await blogPostRepository.GetAllAsync();
 
-            foreach (BlogPost post in posts)
+            List<BlogPostDto> response = new();
+
+            foreach (BlogPost blogPost in blogPosts)
             {
-                response.Add(new BlogPostDto { 
-                    
-                    Id = post.Id,
-                    Title = post.Title,
-                    ShortDescription = post.ShortDescription ,
-                    Content = post.Content,
-                    FeaturedImageUrl =  post.FeaturedImageUrl,
-                    UrlHandle =  post.UrlHandle,
-                    PublishedDate =  post.PublishedDate,
-                    Author =  post.Author,
-                    IsVisible = post.IsVisible,
+                response.Add(new BlogPostDto
+                {
+
+                    Id = blogPost.Id,
+                    Title = blogPost.Title,
+                    ShortDescription = blogPost.ShortDescription,
+                    Content = blogPost.Content,
+                    FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                    UrlHandle = blogPost.UrlHandle,
+                    PublishedDate = blogPost.PublishedDate,
+                    Author = blogPost.Author,
+                    IsVisible = blogPost.IsVisible,
+                    Categories = blogPost.Categories.Select(x => new CategoryDto
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        UrlHandle = x.UrlHandle
+                    })
+                .ToList()
                 });
             }
             return Ok(response);

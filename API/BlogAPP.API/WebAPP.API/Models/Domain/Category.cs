@@ -12,5 +12,7 @@ namespace WebAPP.API.Models.Domain
 
         public required string UrlHandle { get; set; }
 
+        public ICollection<BlogPost> BlogPosts { get; set; }
+
     }
 }

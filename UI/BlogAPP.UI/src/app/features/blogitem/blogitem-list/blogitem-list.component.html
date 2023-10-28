@@ -10,10 +10,26 @@
       </div>
     </div>
 
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <a
+            [routerLink]="['/admin/blogItems/add']"
+            class="btn bsb-btn-2xl btn-primary rounded-pill mt-5 mt-xl-10"
+            >Create your own post!</a
+          >
+        </div>
+      </div>
+    </div>
+
     <div class="container overflow-hidden">
       <ng-container *ngIf="blogItems$ | async as blogItems">
-        <div *ngFor="let blogItem of blogItems" class="row gy-4 gy-md-5 gx-xl-6 gy-xl-6 gx-xxl-9 gy-xxl-9  mt-3">
-          <div class="col-12 col-lg-4 rounded-2 border border-1 border-info">
+        <div
+          *ngFor="let blogItem of blogItems"
+          class="row gy-4 gy-md-5 gx-xl-6 gy-xl-6 gx-xxl-9 gy-xxl-9 mt-3"
+        >
+          <div class="col-1 rounded-2 border border-1 border-info"></div>
+          <div class="col-10 rounded-2 border border-1 border-info">
             <a href=""></a>
             <article>
               <div class="card border-0 bg-transparent">
@@ -69,6 +85,14 @@
                     </h2>
                   </div>
                 </div>
+                <ng-container *ngFor="let category of blogItem.categories">
+                  <span class="badge bg-primary m-2" style="width: 100px">{{
+                    category.name
+                  }}</span>
+                  <span class="badge bg-secondary m-2" style="width: 100px">{{
+                    category.urlHandle
+                  }}</span>
+                </ng-container>
                 <div class="card-footer border-0 bg-transparent p-0 m-0">
                   <ul
                     class="entry-meta list-unstyled d-flex align-items-center m-0"
@@ -127,20 +151,10 @@
               </div>
             </article>
           </div>
+
+          <div class="col-1 rounded-2 border border-1 border-info"></div>
         </div>
       </ng-container>
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col text-center">
-          <a
-            [routerLink]="['/admin/blogItems/add']"
-            class="btn bsb-btn-2xl btn-primary rounded-pill mt-5 mt-xl-10"
-            >Create your own post!</a
-          >
-        </div>
-      </div>
     </div>
   </section>
 </div>
