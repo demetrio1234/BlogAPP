@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscriber } from 'rxjs';
+import { Observable } from 'rxjs';
 import { BlogItem } from '../models/blogitem.model';
 import { BlogitemService } from '../services/blogitem.service';
 
@@ -17,7 +17,6 @@ export class BlogitemListComponent implements OnInit {
   }
   ngOnInit(): void {
     this.blogItems$ = this.blogItemService.getAllBlogItems();
-    console.log(this.blogItems$);
   }
 
 }

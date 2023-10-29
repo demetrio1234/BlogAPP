@@ -30,22 +30,12 @@
         >
           <div class="col-1 rounded-2 border border-1 border-info"></div>
           <div class="col-10 rounded-2 border border-1 border-info">
-            <a href=""></a>
+            <h2>{{ blogItem.title }}</h2>
             <article>
               <div class="card border-0 bg-transparent">
                 <figure
                   class="card-img-top mb-4 overflow-hidden bsb-overlay-hover"
                 >
-                  <!--
-                  <a href="#!">
-                    <img
-                      class="img-fluid bsb-scale bsb-hover-scale-up"
-                      loading="lazy"
-                      src="./assets/img/blog-img-1.jpg"
-                      alt="Living"
-                    />
-
-                  </a> -->
                   <figcaption>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -150,6 +140,12 @@
                 </div>
               </div>
             </article>
+            <a
+              class="btn btn-primary"
+              [routerLink]="['/admin/blogItems/', blogItem.id]"
+            >
+              Edit Post
+            </a>
           </div>
 
           <div class="col-1 rounded-2 border border-1 border-info"></div>

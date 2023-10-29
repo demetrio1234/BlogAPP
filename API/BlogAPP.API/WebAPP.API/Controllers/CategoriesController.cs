@@ -11,16 +11,17 @@ namespace WebAPP.API.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryRepository categoryRepository;
+        private readonly IBlogPostRepository blogPostRepository;
 
-        public CategoriesController(ICategoryRepository categoryRepository)
+        public CategoriesController(ICategoryRepository categoryRepository, IBlogPostRepository blogPostRepository)
         {
             this.categoryRepository = categoryRepository;
+            this.blogPostRepository = blogPostRepository;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto request)
         {
-            //Request -> new Model
             Category category = new() { Name = request.Name, UrlHandle = request.UrlHandle };
 
             await categoryRepository.CreateAsync(category);
@@ -32,16 +33,15 @@ namespace WebAPP.API.Controllers
                 Name = category.Name,
                 UrlHandle = category.UrlHandle
             };
-
             return Ok(response);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await categoryRepository.GetAllCategoriesAsync();
+            IEnumerable<Category> categories = await categoryRepository.GetAllCategoriesAsync();
 
-            var response = new List<CategoryDto>();
+            List<CategoryDto> response = new ();
 
             foreach (var category in categories)
             {
@@ -52,7 +52,6 @@ namespace WebAPP.API.Controllers
                     UrlHandle = category.UrlHandle
                 });
             }
-
             return Ok(response);
         }
 

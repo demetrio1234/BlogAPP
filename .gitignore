@@ -14,3 +14,8 @@ API/BlogAPP.API/WebAPP.API/obj/Debug/net7.0/WebAPP.API.GeneratedMSBuildEditorCon
 API/BlogAPP.API/WebAPP.API/obj/Debug/net7.0/WebAPP.API.AssemblyInfo.cs
 API/BlogAPP.API/WebAPP.API/obj/Debug/net7.0/WebAPP.API.GlobalUsings.g.cs
 API/BlogAPP.API/WebAPP.API/obj/Debug/net7.0/WebAPP.API.MvcApplicationPartsAssemblyInfo.cs
+API/BlogAPP.API/WebAPP.API/bin/Debug/net7.0/appsettings.Development.json
+API/BlogAPP.API/WebAPP.API/bin/Debug/net7.0/appsettings.json
+API/BlogAPP.API/WebAPP.API/bin/Debug/net7.0/WebAPP.API.deps.json
+API/BlogAPP.API/WebAPP.API/bin/Debug/net7.0/WebAPP.API.runtimeconfig.json
+API/BlogAPP.API/WebAPP.API/obj/Debug/net7.0/staticwebassets.build.json

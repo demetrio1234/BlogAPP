@@ -7,6 +7,7 @@ import { AddBlogitemComponent } from './features/blogitem/add-blogitem/add-blogi
 import { UserListComponent } from './features/user/user-list/user-list.component';
 import { AddUserComponent } from './features/user/add-user/add-user.component';
 import { EditCategoryComponent } from './features/category/edit-category/edit-category.component';
+import { EditBlogitemComponent } from './features/blogitem/edit-blogitem/edit-blogitem.component';
 
 const routes: Routes = [
   { path: 'admin/categories', component: CategoryListComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
 
   { path: 'admin/blogItems', component: BlogitemListComponent },
   { path: 'admin/blogItems/add', component: AddBlogitemComponent },
-
+  { path: 'admin/blogItems/:id', component: EditBlogitemComponent },
+  
   { path: 'admin/users', component: UserListComponent },
   { path: 'admin/users/add', component: AddUserComponent },
 

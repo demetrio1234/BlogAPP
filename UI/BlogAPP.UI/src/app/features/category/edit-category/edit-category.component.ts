@@ -31,11 +31,13 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
         this.id = params.get('id');
 
         if (this.id) {
-          this.editCategorySubscription = this.categoryService.getCategoryById(this.id).subscribe({
-            next: (response) => {
-              this.category = response;;
-            },
-          });
+          this.editCategorySubscription = this.categoryService
+            .getCategoryById(this.id)
+            .subscribe({
+              next: (response) => {
+                this.category = response;
+              },
+            });
         }
       },
     });

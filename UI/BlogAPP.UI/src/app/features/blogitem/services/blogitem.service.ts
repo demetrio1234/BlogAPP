@@ -22,4 +22,8 @@ export class BlogitemService {
   getAllBlogItems(): Observable<BlogItem[]> {
     return this.http.get<BlogItem[]>(`${this.blogItemsUrl}`);
   }
+
+  getBlogItemById(id: string): Observable<BlogItem> {
+    return this.http.get<BlogItem>(`${this.blogItemsUrl}/${id}`);
+  }
 }

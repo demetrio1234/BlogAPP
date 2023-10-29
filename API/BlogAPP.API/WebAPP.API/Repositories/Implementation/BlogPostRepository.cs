@@ -24,9 +24,38 @@ namespace WebAPP.API.Repositories.Implementation
             return blogPost;
         }
 
-        public async Task<IEnumerable<BlogPost>> GetAllAsync()
+        public async Task<IEnumerable<BlogPost>> GetAllBlogPostsAsync()
         {
             return await dbContext.BlogPosts.Include(x => x.Categories).ToListAsync();
+        }
+
+        public async Task<BlogPost?> GetByIdAsync(Guid Id)
+        {
+            return await dbContext.BlogPosts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == Id);
+        }
+
+        public async Task<BlogPost?> UpdateBlogPostAsync(BlogPost request)
+        {
+            BlogPost? existingBlogPost = await dbContext.BlogPosts.FirstOrDefaultAsync(blogPost => blogPost.Id == request.Id);
+
+            if (existingBlogPost == null)
+                return null;
+
+            dbContext.Entry(existingBlogPost).CurrentValues.SetValues(request);
+            await dbContext.SaveChangesAsync();
+            return existingBlogPost;
+        }
+        public async Task<BlogPost?> DeleteBlogPostAsync(Guid Id)
+        {
+            BlogPost? existingBlogPost = await dbContext.BlogPosts.FirstOrDefaultAsync(blogPost => blogPost.Id == Id);
+
+            if (existingBlogPost == null)
+                return null;
+
+            dbContext.Remove(existingBlogPost);
+            await dbContext.SaveChangesAsync();
+            return existingBlogPost;
+
         }
     }
 }
