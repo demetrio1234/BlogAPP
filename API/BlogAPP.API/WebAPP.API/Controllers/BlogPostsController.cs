@@ -38,7 +38,7 @@ namespace WebAPP.API.Controllers
                 Categories = new List<Category>()
             };
 
-            foreach (Guid guid in request.guids)
+            foreach (Guid guid in request.categories)
             {
                 var existingCategory = await categoryRepository.GetCategoryByIdAsync(guid);
 

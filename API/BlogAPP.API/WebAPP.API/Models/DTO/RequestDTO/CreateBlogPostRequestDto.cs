@@ -18,6 +18,6 @@
 
         public required bool IsVisible { get; set; }
 
-        public Guid[] guids { get; set; }
+        public Guid[] categories { get; set; }
     }
 }
