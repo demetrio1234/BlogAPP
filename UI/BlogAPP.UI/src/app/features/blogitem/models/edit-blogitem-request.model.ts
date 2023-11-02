@@ -1,7 +1,6 @@
 import { Category } from "../../category/models/category.model";
 
-export interface BlogItem {
-    id: string;
+export interface EditBlogItemRequest {
     title: string;
     shortDescription: string;
     content: string;
@@ -10,5 +9,5 @@ export interface BlogItem {
     publishedDate: Date;
     author: string;
     isVisible: boolean;
-    categories:Category[]
+    categories: Category[]
 }

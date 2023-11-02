@@ -36,18 +36,27 @@ namespace WebAPP.API.Repositories.Implementation
 
         public async Task<BlogPost?> UpdateBlogPostAsync(BlogPost request)
         {
-            BlogPost? existingBlogPost = await dbContext.BlogPosts.FirstOrDefaultAsync(blogPost => blogPost.Id == request.Id);
+            BlogPost? existingBlogPost = await dbContext.BlogPosts.
+                Include(x => x.Categories).
+                FirstOrDefaultAsync(blogPost => blogPost.Id == request.Id);
 
             if (existingBlogPost == null)
                 return null;
 
             dbContext.Entry(existingBlogPost).CurrentValues.SetValues(request);
+            
+            existingBlogPost.Categories = request.Categories;
+            
             await dbContext.SaveChangesAsync();
-            return existingBlogPost;
+            return request;
         }
+
+
         public async Task<BlogPost?> DeleteBlogPostAsync(Guid Id)
         {
-            BlogPost? existingBlogPost = await dbContext.BlogPosts.FirstOrDefaultAsync(blogPost => blogPost.Id == Id);
+            BlogPost? existingBlogPost = await dbContext.BlogPosts.
+                                        Include(x => x.Categories).
+                                        FirstOrDefaultAsync(blogPost => blogPost.Id == Id);
 
             if (existingBlogPost == null)
                 return null;

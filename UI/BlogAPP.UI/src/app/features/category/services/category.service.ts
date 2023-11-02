@@ -28,13 +28,12 @@ export class CategoryService {
     return this.http.get<Category>(`${this.categoriesUrl}/${id}`);
   }
 
-  editCategory(id: string, editCategoryRequest: EditCategoryRequest): Observable<Category> {
-
+  editCategory(id: string,
+    editCategoryRequest: EditCategoryRequest) : Observable<Category> {
     return this.http.put<Category>(`${this.categoriesUrl}/${id}`, editCategoryRequest);
-
   }
 
-  deleteCategory(id:string):Observable<Category>{
+  deleteCategory(id: string): Observable<Category> {
     return this.http.delete<Category>(`${this.categoriesUrl}/${id}`);
   }
 

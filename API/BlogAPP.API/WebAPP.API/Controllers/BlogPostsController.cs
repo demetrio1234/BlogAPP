@@ -152,6 +152,16 @@ namespace WebAPP.API.Controllers
                 Categories = new List<Category>()
             };
 
+            if (request.Categories != null && request.Categories.Count > 0)
+            {
+                foreach (var category in request.Categories)
+                {
+                    var tempCategory = await categoryRepository.GetCategoryByIdAsync(category);
+                    if (tempCategory != null)
+                        blogPost.Categories.Add(tempCategory);
+                }
+            }
+
             var updatedBlogPost = await blogPostRepository.UpdateBlogPostAsync(blogPost);
 
             if (updatedBlogPost != null)
