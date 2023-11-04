@@ -140,11 +140,20 @@
                 </div>
               </div>
             </article>
+            
             <a
-              class="btn btn-primary"
+              class="btn btn-primary me-xxl-5"
               [routerLink]="['/admin/blogItems/', blogItem.id]"
             >
               Edit Post
+            </a>
+            <span></span>
+            <a
+              class="btn btn-danger ms-xxl-5"
+              [routerLink]="['/admin/blogItems/']"
+              (click)="deleteBlogItemById(blogItem.id)"
+            >
+              Delete Post
             </a>
           </div>
 

@@ -9,5 +9,5 @@ export interface EditBlogItemRequest {
     publishedDate: Date;
     author: string;
     isVisible: boolean;
-    categories: Category[]
+    categories: string[]
 }

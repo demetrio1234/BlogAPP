@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
 using WebAPP.API.Models.DTO.RequestDTO;
@@ -131,6 +132,7 @@ namespace WebAPP.API.Controllers
                 })
                 .ToList()
             };
+
             return Ok(response);
         }
 
@@ -152,13 +154,12 @@ namespace WebAPP.API.Controllers
                 Categories = new List<Category>()
             };
 
-            if (request.Categories != null && request.Categories.Count > 0)
+            foreach (var categoryGuid in request.Categories)
             {
-                foreach (var category in request.Categories)
+                var existingCategory = await categoryRepository.GetCategoryByIdAsync(categoryGuid);
+                if (existingCategory != null)
                 {
-                    var tempCategory = await categoryRepository.GetCategoryByIdAsync(category);
-                    if (tempCategory != null)
-                        blogPost.Categories.Add(tempCategory);
+                    blogPost.Categories.Add(existingCategory);
                 }
             }
 
