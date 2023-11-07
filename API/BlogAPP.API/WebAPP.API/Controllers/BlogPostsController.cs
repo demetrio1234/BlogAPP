@@ -11,7 +11,6 @@ namespace WebAPP.API.Controllers
     [ApiController]
     public class BlogPostsController : ControllerBase
     {
-
         private readonly IBlogPostRepository blogPostRepository;
         private readonly ICategoryRepository categoryRepository;
         public BlogPostsController(IBlogPostRepository blogPostRepository, ICategoryRepository categoryRepository)
@@ -21,7 +20,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDto request)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateBlogPostRequestDto request)
         {
             var blogPost = new BlogPost()
             {
@@ -72,9 +71,9 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllBlogPosts()
+        public async Task<IActionResult> GetAllAsync()
         {
-            IEnumerable<BlogPost> blogPosts = await blogPostRepository.GetAllBlogPostsAsync();
+            IEnumerable<BlogPost> blogPosts = await blogPostRepository.GetAllAsync();
 
             List<BlogPostDto> response = new();
 
@@ -138,7 +137,7 @@ namespace WebAPP.API.Controllers
 
         [HttpPut]
         [Route("{Id:Guid}")]
-        public async Task<IActionResult> UpdateBlogPost([FromRoute] Guid Id, UpdateBlogPostRequestDto request)
+        public async Task<IActionResult> UpdateAsync([FromRoute] Guid Id, UpdateBlogPostRequestDto request)
         {
             BlogPost blogPost = new()
             {
@@ -163,7 +162,7 @@ namespace WebAPP.API.Controllers
                 }
             }
 
-            var updatedBlogPost = await blogPostRepository.UpdateBlogPostAsync(blogPost);
+            BlogPost? updatedBlogPost = await blogPostRepository.UpdateAsync(blogPost);
 
             if (updatedBlogPost != null)
             {
@@ -196,9 +195,9 @@ namespace WebAPP.API.Controllers
 
         [HttpDelete]
         [Route("{Id:Guid}")]
-        public async Task<IActionResult> DeleteBlogPost([FromRoute] Guid Id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid Id)
         {
-            BlogPost? existingBlogPost = await blogPostRepository.DeleteBlogPostAsync(Id);
+            BlogPost? existingBlogPost = await blogPostRepository.DeleteAsync(Id);
 
             if (existingBlogPost == null)
                 return NotFound();

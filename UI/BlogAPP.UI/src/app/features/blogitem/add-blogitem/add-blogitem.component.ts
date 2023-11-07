@@ -34,10 +34,12 @@ export class AddBlogitemComponent implements OnInit, OnDestroy {
   }
 
   categories$?: Observable<Category[]>;
-
+  isImageSelectorVisible:boolean=false;
+  
   ngOnInit(): void {
 
     this.categories$ = this.categoryService.getCategories();
+    this.isImageSelectorVisible = false;
 
   }
 
@@ -53,8 +55,16 @@ export class AddBlogitemComponent implements OnInit, OnDestroy {
       });
   }
 
-
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  openImageSelector(): void {
+    this.isImageSelectorVisible = true;
+  }
+
+  closeImageSelector(){
+    this.isImageSelectorVisible = false;
+  }
+
 }

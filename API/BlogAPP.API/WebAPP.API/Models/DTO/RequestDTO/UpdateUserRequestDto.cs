@@ -1,8 +1,7 @@
-﻿namespace WebAPP.API.Models.DTO.DTOs
+﻿namespace WebAPP.API.Models.DTO.RequestDTO
 {
-    public class UserDto
+    public class UpdateUserRequestDto
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string HashedPassword { get; set; }

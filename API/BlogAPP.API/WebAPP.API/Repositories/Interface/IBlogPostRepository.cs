@@ -5,11 +5,9 @@ namespace WebAPP.API.Repositories.Interface
     public interface IBlogPostRepository
     {
         Task<BlogPost> CreateAsync(BlogPost blogPost);
-        Task<IEnumerable<BlogPost>> GetAllBlogPostsAsync();
+        Task<IEnumerable<BlogPost>> GetAllAsync();
         Task<BlogPost?> GetByIdAsync(Guid Id);
-
-        Task<BlogPost?> UpdateBlogPostAsync(BlogPost blogPost);
-
-        Task<BlogPost?> DeleteBlogPostAsync(Guid Id);
+        Task<BlogPost?> UpdateAsync(BlogPost blogPost);
+        Task<BlogPost?> DeleteAsync(Guid Id);
     }
 }

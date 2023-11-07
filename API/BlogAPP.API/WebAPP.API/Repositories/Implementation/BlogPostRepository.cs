@@ -24,17 +24,18 @@ namespace WebAPP.API.Repositories.Implementation
             return blogPost;
         }
 
-        public async Task<IEnumerable<BlogPost>> GetAllBlogPostsAsync()
+        public async Task<IEnumerable<BlogPost>> GetAllAsync()
         {
             return await dbContext.BlogPosts.Include(x => x.Categories).ToListAsync();
         }
 
         public async Task<BlogPost?> GetByIdAsync(Guid Id)
         {
-            return await dbContext.BlogPosts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == Id);
+            return await dbContext.BlogPosts.Include(x => x.Categories).
+                FirstOrDefaultAsync(x => x.Id == Id);
         }
 
-        public async Task<BlogPost?> UpdateBlogPostAsync(BlogPost request)
+        public async Task<BlogPost?> UpdateAsync(BlogPost request)
         {
             BlogPost? existingBlogPost = await dbContext.BlogPosts.
                 Include(x => x.Categories).
@@ -44,15 +45,14 @@ namespace WebAPP.API.Repositories.Implementation
                 return null;
 
             dbContext.Entry(existingBlogPost).CurrentValues.SetValues(request);
-            
+
             existingBlogPost.Categories = request.Categories;
-            
+
             await dbContext.SaveChangesAsync();
             return request;
         }
 
-
-        public async Task<BlogPost?> DeleteBlogPostAsync(Guid Id)
+        public async Task<BlogPost?> DeleteAsync(Guid Id)
         {
             BlogPost? existingBlogPost = await dbContext.BlogPosts.
                                         Include(x => x.Categories).
