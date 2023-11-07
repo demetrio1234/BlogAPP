@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
 using WebAPP.API.Models.DTO.RequestDTO;
 using WebAPP.API.Repositories.Interface;
@@ -15,6 +16,56 @@ namespace WebAPP.API.Controllers
             this.imageRepository = imageRepository;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UploadImage([FromForm] IFormFile file,
+                                                     [FromForm] string fileName,
+                                                     [FromForm] string title)
+        {
+            ValidateFile(file);
+
+            if (ModelState.IsValid)
+            {
+                Image image = new()
+                {
+                    FileName = fileName,
+                    FileExtension = Path.GetExtension(file.FileName).ToLowerInvariant(),
+                    Title = title,
+                    DateCreated = DateTime.Now,
+                };
+
+                image = await imageRepository.UploadImage(file, image);
+
+                ImageDto response = new()
+                {
+                    Id = image.Id,
+                    FileName = image.FileName,
+                    FileExtension = image.FileExtension,
+                    Title = image.Title,
+                    Url = image.Url,
+                    DateCreated = image.DateCreated
+                };
+
+                return Ok(response);
+            }
+
+            return BadRequest(ModelState);
+
+        }
+
+        private void ValidateFile(IFormFile file)
+        {
+            var validExtensions = new string[] { ".bmp", ".jpeg", ".jpg", ".png", ".svg", };
+
+            string extension = Path.GetExtension(file.FileName.ToLowerInvariant());
+
+            if (!validExtensions.Contains(extension))
+                ModelState.AddModelError("File Error", "Unsupported file format.");
+
+            if (file.Length > 10485760) //File bigger than 10 MB not allowed
+                ModelState.AddModelError("File Error", "Unsupported file size.");
+        }
+
+        /*
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] CreateImageRequestDto request)
         {
@@ -42,6 +93,7 @@ namespace WebAPP.API.Controllers
             return Ok(response);
         }
 
+        */
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
