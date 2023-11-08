@@ -8,10 +8,10 @@ namespace WebAPP.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ImageController : ControllerBase
+    public class ImagesController : ControllerBase
     {
         private readonly IImageRepository imageRepository;
-        public ImageController(IImageRepository imageRepository)
+        public ImagesController(IImageRepository imageRepository)
         {
             this.imageRepository = imageRepository;
         }

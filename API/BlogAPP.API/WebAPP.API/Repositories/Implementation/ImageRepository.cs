@@ -24,13 +24,13 @@ namespace WebAPP.API.Repositories.Implementation
         public async Task<Image> UploadImage(IFormFile file, Image image)
         {
             //Upload the file to a local folder
-            string localPath = Path.Combine(webHostEnvironment.ContentRootPath,"Images", $"{image.FileName}");//{image.FileExtension}
+            string localPath = Path.Combine(webHostEnvironment.ContentRootPath, "Images", $"{image.FileName}{image.FileExtension}");
             using var stream = new FileStream(localPath, FileMode.Create);
             await file.CopyToAsync(stream);
 
             //Update the database with all image's informations
-            var httpRequest = httpContextAccessor.HttpContext.Request;
-            string? urlPath = $"{httpRequest.Scheme}://{httpRequest.Host}{httpRequest.PathBase}/Images/{image.FileName}";//{image.FileExtension}
+            var httpRequest = httpContextAccessor?.HttpContext?.Request;
+            string? urlPath = $"{httpRequest?.Scheme}://{httpRequest?.Host}{httpRequest?.PathBase}/Images/{image.FileName}{image.FileExtension}";
 
             image.Url = urlPath;
 

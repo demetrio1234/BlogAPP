@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
 using WebAPP.API.Data;
 using WebAPP.API.Repositories.Implementation;
 using WebAPP.API.Repositories.Interface;
@@ -42,6 +44,14 @@ app.UseCors(options =>
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseStaticFiles(new StaticFileOptions(){
+    //Microsoft.Extensions.FileProviders.Physical.ExclusionFilters filters = { "", "", "", "", "", "", "", }; 
+
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+
+    RequestPath = "/Images",
+});
 
 app.MapControllers();
 
