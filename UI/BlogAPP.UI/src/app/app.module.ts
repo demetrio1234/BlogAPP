@@ -16,6 +16,7 @@ import { EditCategoryComponent } from './features/category/edit-category/edit-ca
 import { MarkdownModule } from 'ngx-markdown';
 import { EditBlogitemComponent } from './features/blogitem/edit-blogitem/edit-blogitem.component';
 import { ImageuploaderComponent } from './shared/imageuploader/imageuploader.component';
+import { ImageListComponent } from './shared/image-list/image-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ImageuploaderComponent } from './shared/imageuploader/imageuploader.com
     UserListComponent,
     EditCategoryComponent,
     EditBlogitemComponent,
-    ImageuploaderComponent
+    ImageuploaderComponent,
+    ImageListComponent
   ],
   imports: [
     BrowserModule,

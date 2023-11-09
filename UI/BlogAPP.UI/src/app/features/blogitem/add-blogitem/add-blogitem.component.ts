@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CategoryService } from '../../category/services/category.service';
 import { Category } from '../../category/models/category.model';
+import { ImageuploaderComponent } from 'src/app/shared/imageuploader/imageuploader.component';
 
 @Component({
   selector: 'app-add-blogitem',
