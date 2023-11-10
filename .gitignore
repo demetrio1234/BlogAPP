@@ -19,3 +19,4 @@ API/BlogAPP.API/WebAPP.API/bin/Debug/net7.0/appsettings.json
 API/BlogAPP.API/WebAPP.API/bin/Debug/net7.0/WebAPP.API.deps.json
 API/BlogAPP.API/WebAPP.API/bin/Debug/net7.0/WebAPP.API.runtimeconfig.json
 API/BlogAPP.API/WebAPP.API/obj/Debug/net7.0/staticwebassets.build.json
+*.bin
