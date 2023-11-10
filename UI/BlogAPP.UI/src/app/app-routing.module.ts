@@ -9,6 +9,7 @@ import { AddUserComponent } from './features/user/add-user/add-user.component';
 import { EditCategoryComponent } from './features/category/edit-category/edit-category.component';
 import { EditBlogitemComponent } from './features/blogitem/edit-blogitem/edit-blogitem.component';
 import { ImageListComponent } from './shared/image-list/image-list.component';
+import { BlogItemComponent } from './features/blogitem/blog-item/blog-item.component';
 
 const routes: Routes = [
   { path: 'admin/categories', component: CategoryListComponent },
@@ -18,6 +19,8 @@ const routes: Routes = [
   { path: 'admin/blogItems', component: BlogitemListComponent },
   { path: 'admin/blogItems/add', component: AddBlogitemComponent },
   { path: 'admin/blogItems/:id', component: EditBlogitemComponent },
+
+  { path: 'admin/blogItem/:urlHandle', component: BlogItemComponent },
   
   { path: 'admin/images' , component: ImageListComponent },
   //{ path: 'admin/images/:id', component: ImageComponent },

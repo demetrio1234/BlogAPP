@@ -135,6 +135,39 @@ namespace WebAPP.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("{UrlHandle}")]
+        public async Task<IActionResult> GetByUrlHandleAsync([FromRoute] string UrlHandle)
+        {
+            BlogPost? existingBlogPost = await blogPostRepository.GetByUrlHandleAsync(UrlHandle);
+
+            if (existingBlogPost == null)
+                return NotFound();
+
+            BlogPostDto response = new()
+            {
+                Id = existingBlogPost.Id,
+                Title = existingBlogPost.Title,
+                ShortDescription = existingBlogPost.ShortDescription,
+                Content = existingBlogPost.Content,
+                FeaturedImageUrl = existingBlogPost.FeaturedImageUrl,
+                UrlHandle = existingBlogPost.UrlHandle,
+                PublishedDate = existingBlogPost.PublishedDate,
+                Author = existingBlogPost.Author,
+                IsVisible = existingBlogPost.IsVisible,
+                Categories = existingBlogPost.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle
+                })
+                .ToList()
+            };
+
+            return Ok(response);
+        }
+
+
         [HttpPut]
         [Route("{Id:Guid}")]
         public async Task<IActionResult> UpdateAsync([FromRoute] Guid Id, UpdateBlogPostRequestDto request)

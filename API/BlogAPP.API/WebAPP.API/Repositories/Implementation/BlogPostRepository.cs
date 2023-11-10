@@ -34,6 +34,11 @@ namespace WebAPP.API.Repositories.Implementation
             return await dbContext.BlogPosts.Include(x => x.Categories).
                 FirstOrDefaultAsync(x => x.Id == Id);
         }
+        public async Task<BlogPost?> GetByUrlHandleAsync(string UrlHandle)
+        {
+            return await dbContext.BlogPosts.Include(x => x.Categories).
+                FirstOrDefaultAsync(x => x.UrlHandle == UrlHandle);
+        }
 
         public async Task<BlogPost?> UpdateAsync(BlogPost request)
         {
