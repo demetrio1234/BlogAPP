@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { EditBlogItemRequest } from '../models/edit-blogitem-request.model';
 import { CategoryService } from '../../category/services/category.service';
 import { Category } from '../../category/models/category.model';
+import { ImageService } from 'src/app/shared/imageuploader/services/image.service';
 
 @Component({
   selector: 'app-edit-blogitem',
@@ -23,12 +24,15 @@ export class EditBlogitemComponent implements OnInit, OnDestroy {
   blogItem?: BlogItem;
   categories$?: Observable<Category[]>;
   selectedCategories?: string[];
+  imageSubscription?: Subscription;
+  isImageSelectorVisible: boolean = false;
 
   constructor(
     private blogItemService: BlogitemService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private imageService: ImageService) {
   }
 
   ngOnInit(): void {
@@ -48,7 +52,16 @@ export class EditBlogitemComponent implements OnInit, OnDestroy {
               },
             });
 
-            
+          this.imageSubscription = this.imageService.onSelectedImage().subscribe({
+            next: (response) => {
+              if (this.blogItem) {
+                this.blogItem.featuredImageUrl = response.url;
+                this.isImageSelectorVisible = false;
+              }
+
+            },
+          });
+
         }
       },
     });
@@ -63,7 +76,7 @@ export class EditBlogitemComponent implements OnInit, OnDestroy {
       var editBlogItemRequest: EditBlogItemRequest = {
         title: this.blogItem?.title,
         shortDescription: this.blogItem?.shortDescription,
-        content: this.blogItem?.content ,
+        content: this.blogItem?.content,
         featuredImageUrl: this.blogItem?.featuredImageUrl,
         urlHandle: this.blogItem?.urlHandle,
         publishedDate: this.blogItem?.publishedDate,
@@ -92,16 +105,27 @@ export class EditBlogitemComponent implements OnInit, OnDestroy {
     this.routeSubscription?.unsubscribe();
     this.getBlogItemSubscription?.unsubscribe();
     this.editBlogItemSubscription?.unsubscribe();
+    this.imageSubscription?.unsubscribe();
   }
 
   deleteBlogItemById(id: string): void {
     if (id) {
       this.blogItemService.deleteBlogItem(id).subscribe({
         next: (response) => {
-          console.log(response);
+          console.log(response.id);
           this.router.navigateByUrl('/admin/blogItems');
         },
       });
     }
   }
+
+  openImageSelector(): void {
+    this.isImageSelectorVisible = true;
+  }
+
+  closeImageSelector() {
+    this.isImageSelectorVisible = false;
+  }
+
+
 }

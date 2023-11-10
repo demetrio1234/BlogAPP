@@ -6,6 +6,8 @@ import { Observable, Subscription } from 'rxjs';
 import { CategoryService } from '../../category/services/category.service';
 import { Category } from '../../category/models/category.model';
 import { ImageuploaderComponent } from 'src/app/shared/imageuploader/imageuploader.component';
+import { ImageService } from 'src/app/shared/imageuploader/services/image.service';
+import { BlogItem } from '../models/blogitem.model';
 
 @Component({
   selector: 'app-add-blogitem',
@@ -14,13 +16,22 @@ import { ImageuploaderComponent } from 'src/app/shared/imageuploader/imageupload
 })
 export class AddBlogitemComponent implements OnInit, OnDestroy {
 
+  id: string | null = null;
+  selectedCategories?: string[];
   model: AddBlogItemRequest;
+  blogItem?: BlogItem;
+  isImageSelectorVisible: boolean = false;
 
-  private subscription: Subscription = new Subscription;
+  editBlogItemSubscription?: Subscription;
+  subscription: Subscription = new Subscription;
+  imageSubscription?: Subscription;
+
+  categories$?: Observable<Category[]>;
 
   constructor(private blogItemService: BlogitemService,
     private router: Router,
-    private categoryService: CategoryService) {
+    private categoryService: CategoryService,
+    private imageService: ImageService) {
     this.model = {
       title: '',
       shortDescription: '',
@@ -34,13 +45,20 @@ export class AddBlogitemComponent implements OnInit, OnDestroy {
     }
   }
 
-  categories$?: Observable<Category[]>;
-  isImageSelectorVisible:boolean=false;
-  
   ngOnInit(): void {
 
     this.categories$ = this.categoryService.getCategories();
     this.isImageSelectorVisible = false;
+
+    this.imageSubscription = this.imageService.onSelectedImage().subscribe({
+      next: (response) => {
+        if (this.model) {
+          this.model.featuredImageUrl = response.url;
+          this.isImageSelectorVisible = false;
+        }
+
+      },
+    });
 
   }
 
@@ -58,13 +76,14 @@ export class AddBlogitemComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.imageSubscription?.unsubscribe();
   }
 
   openImageSelector(): void {
     this.isImageSelectorVisible = true;
   }
 
-  closeImageSelector(){
+  closeImageSelector() {
     this.isImageSelectorVisible = false;
   }
 

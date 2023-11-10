@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ImageService } from './services/image.service';
 import { Router } from '@angular/router';
 import { Observable, Subscriber } from 'rxjs';
 import { BlogImage } from './models/blog-image.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-imageuploader',
@@ -21,6 +22,8 @@ export class ImageuploaderComponent implements OnInit, OnDestroy {
 
   imageList$?: Observable<BlogImage[]>;
 
+  @ViewChild('form', {static:false}) imageUploader?:NgForm;
+
   constructor(private imageService: ImageService, private router: Router) { }
 
   ngOnInit(): void {
@@ -28,7 +31,7 @@ export class ImageuploaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    throw new Error('');
+    this.imageSubscriber?.unsubscribe();
   }
 
   onFileChange(event: Event): void {
@@ -47,6 +50,7 @@ export class ImageuploaderComponent implements OnInit, OnDestroy {
           //this.imageSubscriber = response;
           console.log(response);
           this.getImages();
+          this.imageUploader?.resetForm();
           //this.router.navigateByUrl('/admin/images');
         },
       });
@@ -57,5 +61,9 @@ export class ImageuploaderComponent implements OnInit, OnDestroy {
 
   private getImages(){
     this.imageList$ = this.imageService.getAllImages();
+  }
+
+  selectImage(image:BlogImage):void{
+    this.imageService.selectImage(image);
   }
 }
