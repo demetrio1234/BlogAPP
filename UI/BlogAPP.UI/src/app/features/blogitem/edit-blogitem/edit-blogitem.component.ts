@@ -16,6 +16,7 @@ import { ImageService } from 'src/app/shared/imageuploader/services/image.servic
 export class EditBlogitemComponent implements OnInit, OnDestroy {
 
   id: string | null = null;
+  urlHandle: string | null = null;
 
   routeSubscription?: Subscription;
   getBlogItemSubscription?: Subscription;
@@ -65,7 +66,6 @@ export class EditBlogitemComponent implements OnInit, OnDestroy {
         }
       },
     });
-
 
   }
 

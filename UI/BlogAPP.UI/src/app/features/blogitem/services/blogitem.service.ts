@@ -28,6 +28,10 @@ export class BlogitemService {
     return this.http.get<BlogItem>(`${this.blogItemsUrl}/${id}`);
   }
 
+  getBlogItemByUrlHandle(urlHandle: string): Observable<BlogItem> {
+    return this.http.get<BlogItem>(`${this.blogItemsUrl}/${urlHandle}`);
+  }
+
   editBlogItem(id: string,
     editBlogItemRequest: EditBlogItemRequest): Observable<BlogItem> {
     return this.http.put<BlogItem>(`${this.blogItemsUrl}/${id}`, editBlogItemRequest);

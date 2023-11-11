@@ -1,37 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { BlogitemService } from '../services/blogitem.service';
+import { BlogItem } from '../models/blogitem.model';
+import { Category } from '../../category/models/category.model';
+import { ImageService } from 'src/app/shared/imageuploader/services/image.service';
 
 @Component({
   selector: 'app-blog-item',
   templateUrl: './blog-item.component.html',
   styleUrls: ['./blog-item.component.css']
 })
-export class BlogItemComponent implements OnInit {
+export class BlogItemComponent implements OnInit, OnDestroy {
 
   //#region Variables
-  url: string | null = null;
-
+  urlHandle: string | null = null;
   //#endregion Variables
 
-  //#region Subscriptios
-  urlSubscription? : Subscription;
+  //#region Models
+  //#endregion Models
+
+  //#region Subscriptions
+  getBlogItemSubscription?: Subscription;
   //#endregion Subscriptions
 
-  constructor(private route: ActivatedRoute) {
+  //#region Observables
+  blogItem$?: Observable<BlogItem>;
+  //#endregion Observables
+
+  constructor(private route: ActivatedRoute,
+    private blogItemService: BlogitemService,
+  ) {
 
   }
+  ngOnDestroy(): void {
+    this.getBlogItemSubscription?.unsubscribe();
+  }
+
   ngOnInit(): void {
 
-   this.urlSubscription = this.route.paramMap.subscribe({
+    this.route.paramMap.subscribe({
       next: (params) => {
-        params.get('urlHandle')
+        this.urlHandle = params.get('urlHandle');
+
+        if (this.urlHandle) {
+          this.blogItem$ = this.blogItemService.getBlogItemByUrlHandle(this.urlHandle);
+        }
       },
     });
-
-
-
-
   }
-
 }
