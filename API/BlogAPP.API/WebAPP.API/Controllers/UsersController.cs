@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
 using WebAPP.API.Models.DTO.RequestDTO;
@@ -20,6 +21,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto request)
         {
             User user = new()
@@ -55,6 +57,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> GetAllAsync()
         {
             IEnumerable<User> users = await userRepository.GetAllAsync();
@@ -85,6 +88,7 @@ namespace WebAPP.API.Controllers
 
         [HttpGet]
         [Route("{Id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] Guid Id)
         {
 
@@ -114,6 +118,7 @@ namespace WebAPP.API.Controllers
 
         [HttpPut]
         [Route("{Id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateByIdAsync([FromRoute] Guid Id, UpdateUserRequestDto request)
         {
             User? user = new()
@@ -151,6 +156,7 @@ namespace WebAPP.API.Controllers
 
         [HttpDelete]
         [Route("{Id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteByIdAsync([FromRoute] Guid Id)
         {
             User? existingUser = await userRepository.DeleteAsync(Id);

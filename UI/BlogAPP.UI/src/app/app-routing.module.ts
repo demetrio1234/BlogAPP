@@ -10,8 +10,11 @@ import { EditCategoryComponent } from './features/category/edit-category/edit-ca
 import { EditBlogitemComponent } from './features/blogitem/edit-blogitem/edit-blogitem.component';
 import { ImageListComponent } from './shared/image-list/image-list.component';
 import { BlogItemComponent } from './features/blogitem/blog-item/blog-item.component';
+import { LoginComponent } from './features/auth/login/login.component';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  
   { path: 'admin/categories', component: CategoryListComponent },
   { path: 'admin/categories/add', component: AddCategoryComponent },
   { path: 'admin/categories/:id', component: EditCategoryComponent },

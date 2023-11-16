@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using WebAPP.API.Models.DTO.DTOs;
 using WebAPP.API.Models.DTO.RequestDTO;
+using WebAPP.API.Repositories.Interface;
 
 namespace WebAPP.API.Controllers
 {
@@ -10,10 +13,11 @@ namespace WebAPP.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> userManager;
-
-        public AuthController(UserManager<IdentityUser> userManager)
+        private readonly ITokenRepository tokenRepository;
+        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
         {
             this.userManager = userManager;
+            this.tokenRepository = tokenRepository;
         }
 
         [HttpPost]
@@ -60,5 +64,33 @@ namespace WebAPP.API.Controllers
             }
             return ValidationProblem(ModelState);
         }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
+        {
+            IdentityUser? user = await userManager.FindByEmailAsync(request.Email);
+
+            if (user is not null)
+            {
+                bool checkPW = await userManager.CheckPasswordAsync(user, request.Password);
+
+                if (checkPW)
+                {
+                    var roles = await userManager.GetRolesAsync(user);
+
+                    LoginResponseDto response = new ()
+                    {
+                        Email = user.Email,
+                        Token = tokenRepository.CreateJwtToken(user, roles),
+                        Roles = roles.ToList(),
+                    };
+
+                    return Ok(response);
+                }
+            }
+            return Unauthorized();
+        }
+
     }
 }

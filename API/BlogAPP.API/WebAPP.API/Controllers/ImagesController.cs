@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
 using WebAPP.API.Models.DTO.RequestDTO;
@@ -17,6 +18,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UploadImage([FromForm] IFormFile file,
                                                      [FromForm] string fileName,
                                                      [FromForm] string title)
@@ -139,6 +141,7 @@ namespace WebAPP.API.Controllers
 
         [HttpDelete]
         [Route("{Id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteById([FromRoute] Guid Id)
         {
             Models.Domain.Image? existingImage = await imageRepository.DeleteAsync(Id);
@@ -161,6 +164,7 @@ namespace WebAPP.API.Controllers
 
         [HttpPut]
         [Route("Id:Guid")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult?> UpdateAsync([FromRoute] Guid Id, UpdateImageRequest request)
         {
             Models.Domain.Image? existingImage = new()

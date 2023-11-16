@@ -18,6 +18,7 @@ import { EditBlogitemComponent } from './features/blogitem/edit-blogitem/edit-bl
 import { ImageuploaderComponent } from './shared/imageuploader/imageuploader.component';
 import { ImageListComponent } from './shared/image-list/image-list.component';
 import { BlogItemComponent } from './features/blogitem/blog-item/blog-item.component';
+import { LoginComponent } from './features/auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { BlogItemComponent } from './features/blogitem/blog-item/blog-item.compo
     EditBlogitemComponent,
     ImageuploaderComponent,
     ImageListComponent,
-    BlogItemComponent
+    BlogItemComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

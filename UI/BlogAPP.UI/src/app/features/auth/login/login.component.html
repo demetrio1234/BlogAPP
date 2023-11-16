@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="text-center">
+    <div class="form-signin justify-content-center align-items-center">
+      <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+        <div class="d-flex justify-content-center">
+          <img class="mb-4" src="favicon.ico" alt="" width="72" height="57" />
+        </div>
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <div
+          class="text-center form-signin justify-content-center center-labels"
+        >
+          <div
+            class="form-floating borderEmail w-50 d-flex justify-content-center"
+          >
+            <input
+              type="email"
+              class="form-control borderEmail"
+              id="floatingInput"
+              placeholder="Email"
+              name="floatingInput"
+              [(ngModel)]="model.email"
+            />
+            <label for="floatingInput">Email</label>
+          </div>
+          <div
+            class="form-floating borderPassword w-50 d-flex justify-content-center"
+          >
+            <input
+              type="password"
+              class="form-control borderPassword"
+              id="floatingPassword"
+              placeholder="Password"
+              [(ngModel)]="model.password"
+              name="floatingPassword"
+              autocomplete="on"
+            />
+            <label for="floatingPassword">Password</label>
+          </div>
+        </div>
+        <div class="checkbox m-3">
+          <label>
+            <input type="checkbox" value="remember-me" /> Remember me
+          </label>
+        </div>
+        <button class="w-50 btn btn-lg btn-primary" type="submit">
+          Sign in
+        </button>
+        <!-- <p class="mt-5 mb-3 text-muted">© 2017–2021</p> -->
+      </form>
+    </div>
+  </div>
+</div>

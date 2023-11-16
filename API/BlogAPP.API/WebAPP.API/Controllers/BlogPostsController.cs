@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
@@ -167,9 +168,9 @@ namespace WebAPP.API.Controllers
             return Ok(response);
         }
 
-
         [HttpPut]
         [Route("{Id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateAsync([FromRoute] Guid Id, UpdateBlogPostRequestDto request)
         {
             BlogPost blogPost = new()
@@ -228,6 +229,7 @@ namespace WebAPP.API.Controllers
 
         [HttpDelete]
         [Route("{Id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteAsync([FromRoute] Guid Id)
         {
             BlogPost? existingBlogPost = await blogPostRepository.DeleteAsync(Id);
