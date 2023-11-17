@@ -15,7 +15,7 @@ export class LoginComponent {
   model: LoginRequest;
 
 
-  constructor(private authService: AuthService, private cookieService: CookieService, private router : Router) {
+  constructor(private authService: AuthService, private cookieService: CookieService, private router: Router) {
     this.model = {
       email: '',
       password: ''
@@ -26,7 +26,12 @@ export class LoginComponent {
     this.authService.login(this.model).subscribe({
       next: (response) => {
         console.log(response);
-        this.cookieService.set('Authorization', `Bearer ${response.token}` , 15, '/', undefined, true, 'Strict');
+        this.cookieService.set('Authorization', `Bearer ${response.token}`, 15, '/', undefined, true, 'Strict');
+
+        this.authService.setUser({
+          email: response.email,
+          roles: response.roles
+        })
 
         this.router.navigateByUrl('/');
       }
