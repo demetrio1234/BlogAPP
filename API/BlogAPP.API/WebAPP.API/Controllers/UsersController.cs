@@ -14,10 +14,12 @@ namespace WebAPP.API.Controllers
     {
 
         private readonly IUserRepository userRepository;
+        private readonly IMapper mapper;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUserRepository userRepository, IMapper mapper)
         {
             this.userRepository = userRepository;
+            this.mapper = mapper;
         }
 
         [HttpPost]
@@ -57,33 +59,28 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> GetAllAsync()
+        //[Authorize(Roles = "Writer")]
+        public async Task<IActionResult> GetAllAsync() //[FromBody] GetUsersRequestDto request
         {
             IEnumerable<User> users = await userRepository.GetAllAsync();
 
-            List<UserDto> response = new List<UserDto>();
+                var usersDtos = mapper.Map<List<UserDto>>(users);
 
-            foreach (User user in users)
+                if (usersDtos == null)
             {
+                    return NotFound();
+                }
 
-                response.Add(new UserDto()
-                {
-                    Id = user.Id,
-                    Name = user.Name,
-                    Email = user.Email,
-                    HashedPassword = user.HashedPassword,
-                    Address = user.Address,
-                    City = user.City,
-                    Region = user.Region,
-                    PostalCode = user.PostalCode,
-                    Country = user.Country,
-                    Phone = user.Phone,
-                });
-
+                return Ok(usersDtos);
             }
-
-            return Ok(response);
+            catch (Exception e)
+                {
+                return BadRequest(e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Finally block");
+            }
         }
 
         [HttpGet]
