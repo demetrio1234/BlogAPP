@@ -63,19 +63,21 @@ namespace WebAPP.API.Controllers
         //[Authorize(Roles = "Writer")]
         public async Task<IActionResult> GetAllAsync() //[FromBody] GetUsersRequestDto request
         {
-            IEnumerable<User> users = await userRepository.GetAllAsync();
+            try
+            {
+                var users = await userRepository.GetAllAsync();
 
                 var usersDtos = mapper.Map<List<UserDto>>(users);
 
                 if (usersDtos == null)
-            {
+                {
                     return NotFound();
                 }
 
                 return Ok(usersDtos);
             }
             catch (Exception e)
-                {
+            {
                 return BadRequest(e.Message);
             }
             finally
