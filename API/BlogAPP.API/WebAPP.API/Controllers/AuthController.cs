@@ -71,7 +71,7 @@ namespace WebAPP.API.Controllers
         {
             IdentityUser? user = await userManager.FindByEmailAsync(request.Email);
 
-            if (user is not null)
+            if (user is not null && !string.IsNullOrEmpty( user.Email ))
             {
                 bool checkPW = await userManager.CheckPasswordAsync(user, request.Password);
 
