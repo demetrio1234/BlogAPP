@@ -19,9 +19,7 @@ namespace WebAPP.API.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> UploadImage([FromForm] IFormFile file,
-                                                     [FromForm] string fileName,
-                                                     [FromForm] string title)
+        public async Task<IActionResult> UploadImage([FromForm] string description, [FromForm] DateTime clientDate, IFormFile file)
         {
             ValidateFile(file);
 
@@ -29,9 +27,9 @@ namespace WebAPP.API.Controllers
             {
                 Image image = new()
                 {
-                    FileName = fileName,
+                    FileName = file.FileName,
                     FileExtension = Path.GetExtension(file.FileName).ToLowerInvariant(),
-                    Title = title,
+                    Title = description,
                     DateCreated = DateTime.Now,
                 };
 
