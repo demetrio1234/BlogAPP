@@ -1,8 +1,0 @@
-
-.customcard {
-  transition: all 0.3s;
-}
-
-.customcard:hover {
-  transform: scale(1.15);
-}
