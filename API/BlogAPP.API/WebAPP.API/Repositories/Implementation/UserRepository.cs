@@ -22,16 +22,10 @@ namespace WebAPP.API.Repositories.Implementation
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
-        {
-            return await dbContext.User.ToListAsync();
+        public async Task<IEnumerable<User>> GetAllAsync() => await dbContext.User.ToListAsync();
 
-        }
-
-        public async Task<User?> GetByIdAsync(Guid Id)
-        {
-            return await dbContext.User.FirstOrDefaultAsync(user => user.Id == Id);
-        }
+        public async Task<User?> GetByIdAsync(Guid Id) => await dbContext.User.FirstOrDefaultAsync(user => user.Id == Id);
+        
         public async Task<User?> DeleteAsync(Guid Id)
         {
             User? existingUser = await dbContext.User.FirstOrDefaultAsync(user => user.Id == Id);

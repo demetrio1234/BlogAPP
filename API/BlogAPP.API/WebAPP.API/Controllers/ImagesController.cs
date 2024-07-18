@@ -95,6 +95,7 @@ namespace WebAPP.API.Controllers
 
         */
         [HttpGet]
+        [Authorize(Roles = "Writer, Reader")]
         public async Task<IActionResult> GetAll()
         {
             IEnumerable<Models.Domain.Image> images = await imageRepository.GetAllAsync();
@@ -117,6 +118,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Writer, Reader")]
         [Route("{Id:Guid}")]
         public async Task<IActionResult> GetByIdAsync(Guid Id)
         {

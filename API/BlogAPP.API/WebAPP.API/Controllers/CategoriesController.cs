@@ -39,6 +39,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Writer, Reader")]
         public async Task<IActionResult> GetAllCategories()
         {
             IEnumerable<Category> categories = await categoryRepository.GetAllCategoriesAsync();
@@ -59,6 +60,7 @@ namespace WebAPP.API.Controllers
 
         [HttpGet]
         [Route("{Id:Guid}")]
+        [Authorize(Roles = "Writer, Reader")]
         public async Task<IActionResult> GetCategoryById([FromRoute] Guid Id)
         {
             Category? category = await categoryRepository.GetCategoryByIdAsync(Id);

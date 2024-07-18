@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Globalization;
 using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
 using WebAPP.API.Models.DTO.RequestDTO;
@@ -21,6 +20,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateAsync([FromBody] CreateBlogPostRequestDto request)
         {
             var blogPost = new BlogPost()
@@ -72,6 +72,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Writer, Reader")]
         public async Task<IActionResult> GetAllAsync()
         {
             IEnumerable<BlogPost> blogPosts = await blogPostRepository.GetAllAsync();
@@ -106,6 +107,7 @@ namespace WebAPP.API.Controllers
 
         [HttpGet]
         [Route("{Id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> GetByIdAsync(Guid Id)
         {
             BlogPost? existingBlogPost = await blogPostRepository.GetByIdAsync(Id);
@@ -137,6 +139,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Writer, Reader")]
         [Route("{UrlHandle}")]
         public async Task<IActionResult> GetByUrlHandleAsync([FromRoute] string UrlHandle)
         {

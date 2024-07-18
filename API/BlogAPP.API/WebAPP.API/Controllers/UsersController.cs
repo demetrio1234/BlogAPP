@@ -60,7 +60,7 @@ namespace WebAPP.API.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> GetAllAsync() //[FromBody] GetUsersRequestDto request
         {
             try
@@ -70,9 +70,7 @@ namespace WebAPP.API.Controllers
                 var usersDtos = mapper.Map<List<UserDto>>(users);
 
                 if (usersDtos == null)
-                {
                     return NotFound();
-                }
 
                 return Ok(usersDtos);
             }
