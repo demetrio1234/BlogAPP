@@ -76,7 +76,7 @@ namespace WebAPP.API.Controllers
                 Region = user.Region,
                 PostalCode = user.PostalCode,
                 Country = user.Country,
-                Phone = user.Phone,
+                Phone = _userManager.FindByIdAsync(Id.ToString())?.Result?.PhoneNumber ?? ""
             };
 
             return Ok(response);
@@ -110,7 +110,6 @@ namespace WebAPP.API.Controllers
                 Region = request.Region,
                 PostalCode = request.PostalCode,
                 Country = request.Country,
-                Phone = request.Phone,
             };
 
             await _userRepository.UpdateAsync(user);
@@ -125,7 +124,7 @@ namespace WebAPP.API.Controllers
                 Region = user.Region,
                 PostalCode = user.PostalCode,
                 Country = user.Country,
-                Phone = user.Phone,
+                Phone = _userManager.FindByIdAsync(Id.ToString())?.Result?.PhoneNumber ?? ""
             };
 
             return Ok(response);
@@ -164,7 +163,7 @@ namespace WebAPP.API.Controllers
                 Region = existingUser.Region,
                 PostalCode = existingUser.PostalCode,
                 Country = existingUser.Country,
-                Phone = existingUser.Phone,
+                Phone = _userManager.FindByIdAsync(Id.ToString())?.Result?.PhoneNumber ?? ""
             };
 
             return Ok(response);

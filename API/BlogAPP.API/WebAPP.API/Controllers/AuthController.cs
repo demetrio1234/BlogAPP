@@ -36,6 +36,10 @@ namespace WebAPP.API.Controllers
             {
                 UserName = request.Email.Trim(),
                 Email = request.Email.Trim(),
+                EmailConfirmed = false,
+                PhoneNumber = request.PhoneNumber.Trim() ?? string.Empty,
+                PhoneNumberConfirmed = false
+
             };
 
             //Map it's properties to a dto
@@ -45,7 +49,7 @@ namespace WebAPP.API.Controllers
             if (identityResult.Succeeded)
             {
                 identityResult = await _userManager.AddToRoleAsync(user, "Reader");
-                
+
                 var emailConfirmed = identityResult.Succeeded && await _userManager.IsEmailConfirmedAsync(user);
 
                 if (emailConfirmed)

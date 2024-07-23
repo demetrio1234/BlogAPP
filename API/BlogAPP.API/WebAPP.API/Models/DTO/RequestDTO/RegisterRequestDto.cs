@@ -20,6 +20,6 @@ namespace WebAPP.API.Models.DTO.RequestDTO
         public string PostalCode {  get; set; } = string.Empty;
         public string Country { get; set; } = string.Empty;
         public string Region { get; set; } = string.Empty;
-
+        public string PhoneNumber { get; set;} = string.Empty;
     }
 }

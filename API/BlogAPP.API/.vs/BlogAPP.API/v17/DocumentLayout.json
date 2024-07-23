@@ -11,20 +11,16 @@
       "RelativeMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|solutionrelative:webapp.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|c:\\users\\demia\\source\\repos\\blogapp\\api\\blogapp.api\\webapp.api\\models\\domain\\user.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|solutionrelative:webapp.api\\models\\domain\\user.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|c:\\users\\demia\\source\\repos\\blogapp\\api\\blogapp.api\\webapp.api\\data\\authdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|solutionrelative:webapp.api\\data\\authdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|c:\\users\\demia\\source\\repos\\blogapp\\api\\blogapp.api\\webapp.api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|solutionrelative:webapp.api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{23CDF1DF-261B-4CE8-89D1-0CF1AA296BC3}|BlogAPP.Test\\BlogAPP.Test.csproj|c:\\users\\demia\\source\\repos\\blogapp\\api\\blogapp.api\\blogapp.test\\authcontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{23CDF1DF-261B-4CE8-89D1-0CF1AA296BC3}|BlogAPP.Test\\BlogAPP.Test.csproj|solutionrelative:blogapp.test\\authcontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|c:\\users\\demia\\source\\repos\\blogapp\\api\\blogapp.api\\webapp.api\\models\\dto\\requestdto\\registerrequestdto.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|solutionrelative:webapp.api\\models\\dto\\requestdto\\registerrequestdto.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|c:\\users\\demia\\source\\repos\\blogapp\\api\\blogapp.api\\webapp.api\\models\\domain\\user.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{59C21DC2-E946-47B5-96A7-E838E4DBCEFB}|WebAPP.API\\WebAPP.API.csproj|solutionrelative:webapp.api\\models\\domain\\user.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 278,
-          "SelectedChildIndex": 14,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,54 +70,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AuthDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\WebAPP.API\\Data\\AuthDbContext.cs",
-              "RelativeDocumentMoniker": "WebAPP.API\\Data\\AuthDbContext.cs",
-              "ToolTip": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\WebAPP.API\\Data\\AuthDbContext.cs",
-              "RelativeToolTip": "WebAPP.API\\Data\\AuthDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-20T23:12:17.844Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\WebAPP.API\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "WebAPP.API\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\WebAPP.API\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "WebAPP.API\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-19T16:23:46.902Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\WebAPP.API\\Models\\Domain\\User.cs",
               "RelativeDocumentMoniker": "WebAPP.API\\Models\\Domain\\User.cs",
               "ToolTip": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\WebAPP.API\\Models\\Domain\\User.cs",
               "RelativeToolTip": "WebAPP.API\\Models\\Domain\\User.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAA5AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-19T16:04:13.844Z",
+              "WhenOpened": "2024-07-23T18:14:55.147Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "RegisterRequestDto.cs",
               "DocumentMoniker": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\WebAPP.API\\Models\\DTO\\RequestDTO\\RegisterRequestDto.cs",
               "RelativeDocumentMoniker": "WebAPP.API\\Models\\DTO\\RequestDTO\\RegisterRequestDto.cs",
               "ToolTip": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\WebAPP.API\\Models\\DTO\\RequestDTO\\RegisterRequestDto.cs",
               "RelativeToolTip": "WebAPP.API\\Models\\DTO\\RequestDTO\\RegisterRequestDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-19T16:01:35.378Z",
+              "WhenOpened": "2024-07-23T17:58:36.094Z",
               "EditorCaption": ""
             },
             {
@@ -132,9 +102,9 @@
               "RelativeDocumentMoniker": "WebAPP.API\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\WebAPP.API\\Controllers\\AuthController.cs",
               "RelativeToolTip": "WebAPP.API\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
+              "ViewState": "AQIAADkAAAAAAAAAAADwv0IAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-19T15:25:22.237Z",
+              "WhenOpened": "2024-07-23T17:44:13.133Z",
               "EditorCaption": ""
             },
             {
@@ -145,9 +115,22 @@
               "RelativeDocumentMoniker": "WebAPP.API\\Controllers\\UsersController.cs",
               "ToolTip": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\WebAPP.API\\Controllers\\UsersController.cs",
               "RelativeToolTip": "WebAPP.API\\Controllers\\UsersController.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAmwFMAAAAAAAAA",
+              "ViewState": "AQIAAKMAAAAAAAAAAAArwKUAAABcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-19T14:54:31.16Z",
+              "WhenOpened": "2024-07-23T15:17:13.343Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthControllerTests.cs",
+              "DocumentMoniker": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\BlogAPP.Test\\AuthControllerTests.cs",
+              "RelativeDocumentMoniker": "BlogAPP.Test\\AuthControllerTests.cs",
+              "ToolTip": "C:\\Users\\demia\\source\\repos\\BlogAPP\\API\\BlogAPP.API\\BlogAPP.Test\\AuthControllerTests.cs",
+              "RelativeToolTip": "BlogAPP.Test\\AuthControllerTests.cs",
+              "ViewState": "AQIAACIAAAAAAAAAAAAcwDIAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-23T14:33:13.745Z",
               "EditorCaption": ""
             }
           ]
