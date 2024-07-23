@@ -13,6 +13,7 @@ namespace WebAPP.API.Data
         {
             base.OnModelCreating(builder);
 
+            string adminUserId = "4e3c5cff-4462-460e-824b-86e40cb1a1fa";
             string readerRoleId = "60da2d34-ca9c-4e30-9102-8168b3a5a531";
             string writerRoleId = "82819708-7ce8-4349-89a6-c8c461ee506c";
 
@@ -49,14 +50,19 @@ namespace WebAPP.API.Data
                     Name = "Writer",
                     NormalizedName = "Writer".ToUpperInvariant(),
                     ConcurrencyStamp = writerRoleId
+                },
+                new IdentityRole
+                {
+                    Id = adminUserId,
+                    Name = "Admin",
+                    NormalizedName = "Admin".ToUpperInvariant(),
+                    ConcurrencyStamp = adminUserId
                 }
             };
 
             builder.Entity<IdentityRole>().HasData(roles);
 
-            string adminUserId = "4e3c5cff-4462-460e-824b-86e40cb1a1fa";
-
-            var admin = new IdentityUser()
+            var admin = new IdentityUser() //TODO: remove the admin data from here
             {
                 Id = "4e3c5cff-4462-460e-824b-86e40cb1a1fa",
                 UserName = "admin@blogapp.com",
@@ -70,7 +76,7 @@ namespace WebAPP.API.Data
                 LockoutEnd = DateTimeOffset.UtcNow.AddMinutes(5),
             };
 
-            admin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(admin, "`Standard`P@ssword`01234!");
+            admin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(admin, "`Standard`P@ssword`01234!");//TODO : remove the password!!!
 
             builder.Entity<IdentityUser>().HasData(admin);
 
@@ -85,7 +91,11 @@ namespace WebAPP.API.Data
                     UserId = adminUserId,
                     RoleId = writerRoleId
                 },
-
+                new()
+                {
+                    UserId = adminUserId,
+                    RoleId = adminUserId
+                }
             };
 
             builder.Entity<IdentityUserRole<string>>().HasData(adminRoles);
