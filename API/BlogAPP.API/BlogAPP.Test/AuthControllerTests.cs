@@ -13,6 +13,7 @@ using WebAPP.API.Repositories.Implementation;
 using Microsoft.Extensions.Configuration;
 using Castle.Core.Configuration;
 using Microsoft.AspNetCore.DataProtection;
+using WebAPP.API.Services.Interfaces;
 
 namespace BlogAPP.Test
 {
@@ -28,11 +29,12 @@ namespace BlogAPP.Test
             var userManager = scope.ServiceProvider.GetService<UserManager<IdentityUser>>();
             var tokenRepository = scope.ServiceProvider.GetService<ITokenRepository>();
             var userRepository = scope.ServiceProvider.GetService<IUserRepository>();
+            var emailService = scope.ServiceProvider.GetService<IEmailService>();
 
-            if (userManager == null || tokenRepository == null || userRepository == null || dataProtectionProvider == null)
+            if (userManager == null || tokenRepository == null || userRepository == null || dataProtectionProvider == null || emailService == null)
                 throw new ArgumentNullException("Service is null");
 
-            var authController = new AuthController(userManager, tokenRepository, userRepository);
+            var authController = new AuthController(userManager, tokenRepository, userRepository, emailService);
 
             var registerRequestDto = new RegisterRequestDto
             {

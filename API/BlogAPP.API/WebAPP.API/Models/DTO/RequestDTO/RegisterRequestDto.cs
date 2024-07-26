@@ -21,5 +21,7 @@ namespace WebAPP.API.Models.DTO.RequestDTO
         public string Country { get; set; } = string.Empty;
         public string Region { get; set; } = string.Empty;
         public string PhoneNumber { get; set;} = string.Empty;
+
+        public string ClientUri { get; set; } = "https://localhost:7111/authentication/emailconfirmation";
     }
 }

@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
 using WebAPP.API.Models.DTO.RequestDTO;
-using WebAPP.API.Repositories.Implementation;
 using WebAPP.API.Repositories.Interface;
 
 namespace WebAPP.API.Controllers
