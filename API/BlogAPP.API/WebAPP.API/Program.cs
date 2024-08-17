@@ -9,10 +9,39 @@ using WebAPP.API.Mapper;
 using WebAPP.API.Repositories.Implementation;
 using WebAPP.API.Repositories.Interface;
 using Microsoft.OpenApi.Models;
+using WebAPP.API.Models.ServiceModels;
+using NETCore.MailKit.Extensions;
+using NETCore.MailKit.Infrastructure.Internal;
+using WebAPP.API.Services.Interfaces;
+using WebAPP.API.Services.Implementations;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var emailConfig = builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+if (emailConfig is not null)
+{
+    builder.Services.AddSingleton(emailConfig);
+    /*
+    builder.Services.AddMailKit(optionBuilder =>
+    {
+        optionBuilder.UseMailKit(new MailKitOptions()
+        {
+            //get options from sercets.json
+            Server = emailConfig.SmtpServer,
+            Port = Convert.ToInt32(emailConfig.Port),
+            SenderName = emailConfig.UserName,
+            SenderEmail = emailConfig.From,
+
+            // can be optional with no authentication 
+            Account = emailConfig.UserName,
+            Password = emailConfig.Password,
+            // enable ssl or tls
+            Security = true
+        });
+    });
+    */
+}
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
@@ -42,7 +71,7 @@ builder.Services.AddSwaggerGen(options =>
                     Id = JwtBearerDefaults.AuthenticationScheme
                 },
                 Scheme = "Oauth2",
-                Name = JwtBearerDefaults.AuthenticationScheme,            
+                Name = JwtBearerDefaults.AuthenticationScheme,
                 In = ParameterLocation.Header
             },
             new List<string>()
@@ -67,6 +96,7 @@ builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddIdentityCore<IdentityUser>()
     .AddRoles<IdentityRole>()
