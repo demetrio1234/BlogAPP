@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.IdentityModel.Tokens;
 using System.Web;
 using WebAPP.API.Models.Domain;
 using WebAPP.API.Models.DTO.DTOs;
@@ -113,7 +110,7 @@ namespace WebAPP.API.Controllers
                     foreach (IdentityError error in identityResult.Errors)
                         ModelState.AddModelError("", error.Description);
             }
-            return ValidationProblem(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPost]

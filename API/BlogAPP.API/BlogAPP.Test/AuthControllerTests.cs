@@ -6,21 +6,22 @@ using Moq;
 using WebAPP.API.Models.DTO.RequestDTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Hosting;
 using WebAPP.API.Data;
 using Microsoft.EntityFrameworkCore;
 using WebAPP.API.Repositories.Implementation;
 using Microsoft.Extensions.Configuration;
-using Castle.Core.Configuration;
 using Microsoft.AspNetCore.DataProtection;
 using WebAPP.API.Services.Interfaces;
+using WebAPP.API.Models.ServiceModels;
+using WebAPP.API.Services.Implementations;
+using System.Text.Json;
 
 namespace BlogAPP.Test
 {
     public class AuthControllerTests : DependencySetupFixture
     {
         [Fact]
-        public async Task Register_success()
+        public async Task Register_unsuccessful_email_already_taken()
         {
             //Arrange
             using var scope = ServiceProvider.CreateScope();
@@ -50,11 +51,38 @@ namespace BlogAPP.Test
 
             authController.ControllerContext.HttpContext = contextMock.Object;
 
+            //Act
             var actionResult = await authController.Register(registerRequestDto);
 
             //Assert
-            Assert.IsType<ViewResult>(actionResult);
-            Assert.IsAssignableFrom<RegisterRequestDto>(((ViewResult)actionResult).Model);
+            Assert.Equal(((BadRequestObjectResult)actionResult).StatusCode, (int)System.Net.HttpStatusCode.BadRequest);
+
+            string expectedMessage = $"Username \'{registerRequestDto.Email}\' is already taken.";
+
+            var testResult = "";
+
+            if (((BadRequestObjectResult)actionResult).Value is SerializableError errors)
+            {
+                foreach (var error in errors)
+                {
+                    var key = error.Key;
+                    var value = error.Value;
+
+                    if (value is string[] messages)
+                    {
+                        foreach (var message in messages)
+                        {
+                            if (message.Equals(expectedMessage))
+                            {
+                                testResult = message;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            Assert.Equal(testResult, expectedMessage);
         }
     }
 
@@ -82,6 +110,24 @@ namespace BlogAPP.Test
                 var tokenRepository = new TokenRepository(provider.GetService<Microsoft.Extensions.Configuration.IConfiguration>());
                 return tokenRepository;
             });
+
+            //Add EmailService
+            EmailConfiguration emailConfiguration = new(
+                "dem.iaria@gmail.com",
+                "smtp.gmail.com",
+                465,
+                "dem.iaria@gmail.com",
+                "lpmc vmea macn rdbh"
+            );
+
+            serviceCollection.AddSingleton<EmailConfiguration>(emailConfiguration);
+            serviceCollection.AddScoped<IEmailService, EmailService>(provider =>
+            {
+                var emailService = new EmailService(provider.GetService<EmailConfiguration>());
+                return emailService;
+            });
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
 
             serviceCollection.AddDataProtection();
             serviceCollection.AddIdentityCore<IdentityUser>()
