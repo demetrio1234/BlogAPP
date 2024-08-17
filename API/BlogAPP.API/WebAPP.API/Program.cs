@@ -104,6 +104,11 @@ builder.Services.AddIdentityCore<IdentityUser>()
     .AddEntityFrameworkStores<AuthDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
+{
+    options.TokenLifespan = TimeSpan.FromHours(3);
+});
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.

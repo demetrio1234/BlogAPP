@@ -180,5 +180,32 @@ namespace WebAPP.API.Controllers
 
             return BadRequest("Invalid request");
         }
+
+        [HttpPost("forgottenpassword")]
+        public async Task<IActionResult> ForgottenPassword([FromBody] ForgottenPasswordRequestDto request)
+        {
+            if (   !ModelState.IsValid
+                || string.IsNullOrWhiteSpace(request.Email)
+                || string.IsNullOrWhiteSpace(request.Client))
+                return BadRequest("Invalid request");
+
+            IdentityUser? user = await _userManager.FindByEmailAsync(request.Email);
+
+            if (user is null)
+                return BadRequest("Invalid request");
+
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var callbackUrl = QueryHelpers.AddQueryString(request.Client, "token", token);
+
+            Message message = new(
+                [request.Email],
+                "Reset your password",
+                $"<h1>Reset your password</h1><p>Please reset your password by clicking <a href='{callbackUrl}'>here</a></p>");
+
+            _emailSenderService.SendEmail(message);
+
+            return Ok("Email sent");
+        }
     }
 }
