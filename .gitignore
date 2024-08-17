@@ -23,3 +23,6 @@ API/BlogAPP.API/WebAPP.API/AuthDbUsers.json
 *.bin
 /API/BlogAPP.API/WebAPP.API/docs/curl_commands.txt
 /API/BlogAPP.API/WebAPP.API/appsettings.Development.json
+API/BlogAPP.API/.vs/*
+API/BlogAPP.API/BlogAPP.Test/obj/
+API/BlogAPP.API/BlogAPP.Test/bin/
