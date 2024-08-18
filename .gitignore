@@ -37,3 +37,7 @@ API/BlogAPP.API/BlogAPP.Test/bin/
 /API/BlogAPP.API/WebAPP.API/appsettings.Dev.json
 API/BlogAPP.API/WebAPP.API/bin/
 API/BlogAPP.API/xUnitTests/obj/
+/API/BlogAPP.API/xUnitTests/obj/
+/API/BlogAPP.API/WebAPP.API/bin/
+/API/BlogAPP.API/WebAPP.API/obj/
+/API/BlogAPP.API/WebAPP.API/bin
