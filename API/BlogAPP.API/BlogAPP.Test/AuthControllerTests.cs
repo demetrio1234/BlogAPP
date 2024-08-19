@@ -15,6 +15,7 @@ using WebAPP.API.Services.Interfaces;
 using WebAPP.API.Models.ServiceModels;
 using WebAPP.API.Services.Implementations;
 using System.Text.Json;
+using System.Reflection;
 
 namespace BlogAPP.Test
 {
@@ -92,9 +93,14 @@ namespace BlogAPP.Test
     {
         public DependencySetupFixture()
         {
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-                                        .SetBasePath(Directory.GetCurrentDirectory())
-                                        .AddJsonFile("appsettings.json", false, true);
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+
+            configurationBuilder.Sources.Clear();
+
+            configurationBuilder.SetBasePath(Directory.GetCurrentDirectory())
+                                    .AddJsonFile("appsettings.json", false, true)
+                                    .AddUserSecrets<DependencySetupFixture>() //Assembly.GetEntryAssembly()!
+                                    .AddEnvironmentVariables();
 
             var configuration = configurationBuilder.Build();
 
@@ -107,17 +113,17 @@ namespace BlogAPP.Test
             serviceCollection.AddScoped<IImageRepository, ImageRepository>();
             serviceCollection.AddScoped<ITokenRepository, TokenRepository>(provider =>
             {
-                var tokenRepository = new TokenRepository(provider.GetService<Microsoft.Extensions.Configuration.IConfiguration>());
+                var tokenRepository = new TokenRepository(provider.GetService<IConfiguration>());
                 return tokenRepository;
             });
 
             //Add EmailService
             EmailConfiguration emailConfiguration = new(
-                "dem.iaria@gmail.com",
-                "smtp.gmail.com",
-                465,
-                "dem.iaria@gmail.com",
-                "lpmc vmea macn rdbh"
+                configuration["EmailConfiguration:From"],
+                configuration["EmailConfiguration:SmtpServer"],
+                int.Parse(configuration["EmailConfiguration:Port"]),
+                configuration["EmailConfiguration:Username"],
+                configuration["EmailConfiguration:Password"]
             );
 
             serviceCollection.AddSingleton<EmailConfiguration>(emailConfiguration);
