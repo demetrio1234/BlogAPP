@@ -10,12 +10,19 @@ using WebAPP.API.Repositories.Implementation;
 using WebAPP.API.Repositories.Interface;
 using Microsoft.OpenApi.Models;
 using WebAPP.API.Models.ServiceModels;
-using NETCore.MailKit.Extensions;
-using NETCore.MailKit.Infrastructure.Internal;
 using WebAPP.API.Services.Interfaces;
 using WebAPP.API.Services.Implementations;
+using System.Reflection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.Sources.Clear();
+
+builder.Configuration
+    .AddJsonFile("appsettings.json")
+    .AddJsonFile("appsettings.Development.json", true)
+    .AddUserSecrets(Assembly.GetEntryAssembly()!)
+    .AddEnvironmentVariables();
 
 // Add services to the container.
 var emailConfig = builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
